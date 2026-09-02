@@ -637,6 +637,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 .acc-lien{font-size:12px;color:var(--gris-2);text-decoration:underline;text-underline-offset:4px;transition:color .18s ease}
 .acc-lien:hover{color:var(--encre)}
 .acc-poles__grille{display:flex;gap:6px;width:100%;max-width:1000px;margin-top:16px}
+.acc-poles__boutons{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;justify-content:center}
 .acc-pole{flex:1;background:var(--gris-carte);border-radius:12px;padding:46px 30px;display:flex;flex-direction:column;gap:12px;text-align:left}
 .acc-pole__nom{font-size:20px;line-height:22px}
 .acc-pole__desc{font-size:12px;line-height:16px;color:var(--gris-2)}
@@ -658,7 +659,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 .acc-faq__item:last-child{border-bottom:0.5px solid rgba(38,27,26,.3)}
 .acc-faq__q{appearance:none;background:none;border:0;width:100%;padding:24px 0;cursor:pointer;
   display:flex;align-items:center;justify-content:space-between;gap:24px;text-align:left;
-  font-family:inherit;font-weight:500;font-size:14px;line-height:19px;color:inherit;letter-spacing:inherit;
+  font-family:inherit;font-weight:300;font-size:14px;line-height:19px;color:inherit;letter-spacing:inherit;
   transition:opacity .18s ease}
 .acc-faq__q:hover{opacity:.6}
 .acc-faq__q svg{width:15px;height:8px;flex:none;transition:transform .5s cubic-bezier(.34,1.4,.55,1)}
@@ -790,7 +791,10 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
       <p class="acc-pole__desc">Des contenus et des campagnes construits sur des leviers de persuasion identifiés, puis mesurés sur les demandes qu'ils génèrent.</p>
     </div>
   </div>
-  <a class="acc-lien" href="#services">Voir les services</a>
+  <div class="acc-poles__boutons">
+    <a class="bouton" href="#services" data-mode-cible="projet">Voir les services</a>
+    <a class="bouton" href="#services" data-mode-cible="abo">Voir les abonnements</a>
+  </div>
 </section>
 
 <section class="acc-bloc">
@@ -802,29 +806,6 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   <a class="acc-lien" href="#projets">Tous les projets</a>
 </section>
 
-<section class="acc-bloc">
-  <div class="acc-gains">
-    <p class="acc-titre">Pourquoi commencer par un diagnostic.</p>
-    <div class="acc-gains__grille">
-      <div class="acc-gain">
-        <p class="acc-gain__nom">Vous savez où vous perdez des clients</p>
-        <p class="acc-gain__desc">Le diagnostic met des mots sur ce qui freine vos conversions, freins inconscients compris, et donne un ordre d'action avant d'engager un budget.</p>
-      </div>
-      <div class="acc-gain">
-        <p class="acc-gain__nom">Une image crédible d'emblée</p>
-        <p class="acc-gain__desc">Votre identité s'appuie sur les codes que votre cible associe déjà au sérieux et à la qualité, dans votre secteur précisément. Elle rassure avant même que vous parliez.</p>
-      </div>
-      <div class="acc-gain">
-        <p class="acc-gain__nom">Des fichiers qui vous appartiennent</p>
-        <p class="acc-gain__desc">Sources, gabarits et kit Figma livrés en fin de projet. Vous restez autonomes, avec ou sans nous.</p>
-      </div>
-      <div class="acc-gain">
-        <p class="acc-gain__nom">Un seul interlocuteur</p>
-        <p class="acc-gain__desc">La personne qui pense la stratégie suit votre projet jusqu'au déploiement, et chaque choix vous est expliqué.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section class="acc-bloc acc-faq">
   <p class="acc-titre">Les questions qu'on nous pose avant de démarrer.</p>
@@ -839,7 +820,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
     </div>
     <div class="acc-faq__item">
       <button class="acc-faq__q" type="button" aria-expanded="false"><span>Travaillez-vous avec mon secteur ?</span><svg viewBox="0 0 17 9" fill="none" aria-hidden="true"><path d="M0.5 0.5L8.5 8L16.5 0.5" stroke="currentColor" stroke-linecap="round"/></svg></button>
-      <div class="acc-faq__depli"><div><p class="acc-faq__r">Nous travaillons pour des restaurants, des marques produit, des services, des SaaS et des applications. Le point commun tient à la méthode, comprendre comment votre client décide avant de produire quoi que ce soit.</p></div></div>
+      <div class="acc-faq__depli"><div><p class="acc-faq__r">Nous travaillons pour des restaurants, des marques produit, des e-commerces, des services, des SaaS, des applications, des commerces et des entreprises B2B. Le point commun tient à la méthode, comprendre comment votre client et votre marché décident avant de produire quoi que ce soit.</p></div></div>
     </div>
     <div class="acc-faq__item">
       <button class="acc-faq__q" type="button" aria-expanded="false"><span>Et si nous voulons continuer seuls ?</span><svg viewBox="0 0 17 9" fill="none" aria-hidden="true"><path d="M0.5 0.5L8.5 8L16.5 0.5" stroke="currentColor" stroke-linecap="round"/></svg></button>
@@ -1492,6 +1473,15 @@ route();
   window.addEventListener("scroll",maj,{passive:true});
   window.addEventListener("hashchange",function(){setTimeout(maj,80);});
   maj();
+})();
+
+/* ----- boutons services / abonnements : fixent le mode avant d'ouvrir la page ----- */
+(function(){
+  document.querySelectorAll("[data-mode-cible]").forEach(function(a){
+    a.addEventListener("click",function(){
+      document.body.dataset.modeServices = a.dataset.modeCible==="abo" ? "abo" : "projet";
+    });
+  });
 })();
 
 /* ----- FAQ accordéon ----- */
