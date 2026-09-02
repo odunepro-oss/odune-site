@@ -598,14 +598,17 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 .indice-defiler svg{width:12px;height:14px;animation:indice-bas 2.4s cubic-bezier(.45,0,.55,1) infinite}
 @keyframes indice-bas{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 @media (prefers-reduced-motion:reduce){.indice-defiler svg{animation:none}}
+@media (max-width:960px){
+  .indice-defiler{position:static;left:auto;transform:none;align-items:flex-start;text-align:left;margin-top:20px}
+}
 /* bouton du héros accueil : marron, en bas à droite */
 .ecran-hero{position:relative}
 .ecran-hero .bouton{position:absolute;right:var(--marge);bottom:var(--marge);
   background:#261B1A;border-color:#261B1A;color:#FFFFFF}
 .ecran-hero .bouton:hover{background:#FFFFFF;border-color:#FFFFFF;color:#261B1A}
 @media (max-width:760px){
-  .ecran-hero{padding-bottom:calc(var(--marge) + 56px)}
-  .ecran-hero .bouton{right:var(--marge);bottom:var(--marge)}
+  .ecran-hero{padding-bottom:calc(var(--marge) + 56px);background-position:65% center}
+  .ecran-hero .bouton{left:var(--marge);right:auto;bottom:var(--marge)}
 }
 /* bouton dans la colonne services */
 .fixe__cta{margin-top:22px}
