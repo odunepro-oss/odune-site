@@ -624,6 +624,11 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 .cta-flottant[data-visible]{transform:translate(-50%,0)}
 @media (max-width:960px){.cta-flottant{display:inline-flex}}
 @media (prefers-reduced-motion:reduce){.cta-flottant{transition:none}}
+/* accueil : manifeste façon koto, un seul bloc de texte */
+.acc-bloc.acc-manifeste{align-items:flex-start;text-align:left}
+.acc-manifeste__texte{font-size:34px;line-height:44px;max-width:920px}
+.acc-manifeste .acc-lien{margin-top:10px}
+@media (max-width:960px){.acc-manifeste__texte{font-size:22px;line-height:30px}}
 /* accueil : sections sous le héros */
 .acc-bloc{padding:130px var(--marge) 40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px;background:var(--fond)}
 .acc-bloc--premier{padding-top:150px}
@@ -649,10 +654,20 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 .acc-gain__nom::before{content:"";width:13px;height:13px;border-radius:2px;background:#FFFFFF;flex:none}
 .acc-gain__desc{font-size:12px;line-height:17px;color:rgba(255,255,255,.75)}
 .acc-faq__liste{width:100%;max-width:760px;text-align:left;margin-top:16px}
-.acc-faq__item{padding:28px 0;border-top:0.5px solid rgba(38,27,26,.3);display:grid;grid-template-columns:250px 1fr;gap:24px}
+.acc-faq__item{border-top:0.5px solid rgba(38,27,26,.3)}
 .acc-faq__item:last-child{border-bottom:0.5px solid rgba(38,27,26,.3)}
-.acc-faq__q{font-size:14px;line-height:19px;font-weight:500}
-.acc-faq__r{font-size:12px;line-height:17px;color:var(--gris-2)}
+.acc-faq__q{appearance:none;background:none;border:0;width:100%;padding:24px 0;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;text-align:left;
+  font-family:inherit;font-weight:500;font-size:14px;line-height:19px;color:inherit;letter-spacing:inherit;
+  transition:opacity .18s ease}
+.acc-faq__q:hover{opacity:.6}
+.acc-faq__q svg{width:15px;height:8px;flex:none;transition:transform .5s cubic-bezier(.34,1.4,.55,1)}
+.acc-faq__item[data-ouvert] .acc-faq__q svg{transform:rotate(180deg)}
+.acc-faq__depli{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.34,1.2,.5,1)}
+.acc-faq__depli>div{overflow:hidden;min-height:0}
+.acc-faq__item[data-ouvert] .acc-faq__depli{grid-template-rows:1fr}
+.acc-faq__r{font-size:12px;line-height:17px;color:var(--gris-2);padding-bottom:26px;max-width:600px}
+@media (prefers-reduced-motion:reduce){.acc-faq__depli,.acc-faq__q svg{transition:none}}
 .acc-appel{padding-bottom:170px}
 .acc-appel .appel__titre{font-size:32px}
 @media (max-width:960px){
@@ -664,7 +679,6 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   .acc-projets__vis{aspect-ratio:315/220}
   .acc-gains{padding:60px var(--marge);gap:44px}
   .acc-gains__grille{grid-template-columns:1fr;gap:36px}
-  .acc-faq__item{grid-template-columns:1fr;gap:8px}
   .acc-appel{padding-bottom:120px}
   .acc-appel .appel__titre{font-size:24px}
 }
@@ -755,9 +769,8 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   </div>
 </section>
 
-<section class="acc-bloc acc-bloc--premier">
-  <p class="acc-titre">La plupart des marques parlent. Peu sont perçues.</p>
-  <p class="acc-corps">Votre client se fait une image de vous en quelques secondes. Cette image décide pour lui. Nous la travaillons, le reste suit.</p>
+<section class="acc-bloc acc-bloc--premier acc-manifeste">
+  <p class="acc-manifeste__texte" id="acc-manifeste">La plupart des marques parlent. Peu sont perçues. Votre client se fait une image de vous en quelques secondes. Cette image décide pour lui. Nous la travaillons, le reste suit.</p>
   <a class="acc-lien" href="#methode">Voir la méthode</a>
 </section>
 
@@ -817,16 +830,16 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   <p class="acc-titre">Questions directes, réponses directes.</p>
   <div class="acc-faq__liste">
     <div class="acc-faq__item">
-      <p class="acc-faq__q">Combien ça coûte ?</p>
-      <p class="acc-faq__r">Les projets démarrent à 3 000 € HT, les abonnements à 2 000 € par mois. En dessous, il n'y a pas la place pour un diagnostic sérieux. Si votre budget est ailleurs, nous vous le dirons au premier échange.</p>
+      <button class="acc-faq__q" type="button" aria-expanded="false"><span>Combien ça coûte ?</span><svg viewBox="0 0 17 9" fill="none" aria-hidden="true"><path d="M0.5 0.5L8.5 8L16.5 0.5" stroke="currentColor" stroke-linecap="round"/></svg></button>
+      <div class="acc-faq__depli"><div><p class="acc-faq__r">Les projets démarrent à 3 000 € HT, les abonnements à 2 000 € par mois. En dessous, il n'y a pas la place pour un diagnostic sérieux. Si votre budget est ailleurs, nous vous le dirons au premier échange.</p></div></div>
     </div>
     <div class="acc-faq__item">
-      <p class="acc-faq__q">Comment démarre un projet ?</p>
-      <p class="acc-faq__r">Par un appel de trente minutes, sans formulaire. Vous recevez ensuite une recommandation écrite, puis un devis sous 48 heures, en deux niveaux.</p>
+      <button class="acc-faq__q" type="button" aria-expanded="false"><span>Comment démarre un projet ?</span><svg viewBox="0 0 17 9" fill="none" aria-hidden="true"><path d="M0.5 0.5L8.5 8L16.5 0.5" stroke="currentColor" stroke-linecap="round"/></svg></button>
+      <div class="acc-faq__depli"><div><p class="acc-faq__r">Par un appel de trente minutes, sans formulaire. Vous recevez ensuite une recommandation écrite, puis un devis sous 48 heures, en deux niveaux.</p></div></div>
     </div>
     <div class="acc-faq__item">
-      <p class="acc-faq__q">Et si nous voulons continuer seuls ?</p>
-      <p class="acc-faq__r">Vous gardez tout. Les fichiers sources et le kit vous appartiennent, avec ou sans nous.</p>
+      <button class="acc-faq__q" type="button" aria-expanded="false"><span>Et si nous voulons continuer seuls ?</span><svg viewBox="0 0 17 9" fill="none" aria-hidden="true"><path d="M0.5 0.5L8.5 8L16.5 0.5" stroke="currentColor" stroke-linecap="round"/></svg></button>
+      <div class="acc-faq__depli"><div><p class="acc-faq__r">Vous gardez tout. Les fichiers sources et le kit vous appartiennent, avec ou sans nous.</p></div></div>
     </div>
   </div>
 </section>
@@ -1454,6 +1467,42 @@ document.querySelectorAll(".onglet").forEach(function(b){
 });
 
 route();
+
+/* ----- manifeste accueil : les mots s'éclairent au fil du défilement ----- */
+(function(){
+  var el=document.getElementById("acc-manifeste");
+  if(!el) return;
+  var mots=el.textContent.trim().split(/\s+/);
+  el.innerHTML=mots.map(function(m){return '<span class="mot">'+m+'</span>';}).join(' ');
+  var spans=el.querySelectorAll(".mot");
+  function maj(){
+    var r=el.getBoundingClientRect(), vh=window.innerHeight;
+    var p=(vh*0.88-r.top)/(vh*0.55);
+    p=Math.max(0,Math.min(1,p));
+    var n=Math.round(p*spans.length);
+    for(var i=0;i<spans.length;i++){
+      if(i<n) spans[i].setAttribute("data-lu","");
+      else spans[i].removeAttribute("data-lu");
+    }
+  }
+  window.addEventListener("scroll",maj,{passive:true});
+  window.addEventListener("hashchange",function(){setTimeout(maj,80);});
+  maj();
+})();
+
+/* ----- FAQ accordéon ----- */
+(function(){
+  var items=document.querySelectorAll(".acc-faq__item");
+  items.forEach(function(it){
+    var q=it.querySelector(".acc-faq__q");
+    if(!q) return;
+    q.addEventListener("click",function(){
+      var ouvert=it.hasAttribute("data-ouvert");
+      items.forEach(function(a){a.removeAttribute("data-ouvert");a.querySelector(".acc-faq__q").setAttribute("aria-expanded","false");});
+      if(!ouvert){it.setAttribute("data-ouvert","");q.setAttribute("aria-expanded","true");}
+    });
+  });
+})();
 
 /* ----- appel à l'action flottant (mobile) ----- */
 (function(){
