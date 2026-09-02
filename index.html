@@ -337,6 +337,9 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 .liste li:not(:last-child){padding-bottom:8px;border-bottom:0.5px solid var(--encre)}
 
 .s-sans{background:var(--fond);align-items:center;justify-content:center;text-align:center;color:var(--brun)}
+/* on reste un moment dans la section : l'écran est collé pendant le défilement */
+.s-sans-cadre{min-height:230vh}
+.s-sans-cadre .s-sans{position:sticky;top:0;height:100vh;height:100dvh}
 .s-sans__bloc{display:flex;flex-direction:column;gap:12px;align-items:center}
 .s-sans__titre{font-size:24px;line-height:32px;width:915px;max-width:100%}
 .s-sans__corps{font-size:16px;line-height:18px;width:574px;max-width:100%}
@@ -1088,12 +1091,14 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   </div>
 </section>
 
+<div class="s-sans-cadre">
 <section class="ecran s-sans">
   <div class="s-sans__bloc">
     <p class="s-sans__titre">Sans identité claire, pas d'abonnement.</p>
     <p class="s-sans__corps">Diffuser une image floue coûte le même prix que diffuser une image juste. Si votre marque n'est pas posée, nous commençons par un projet. L'abonnement prend le relais ensuite.</p>
   </div>
 </section>
+</div>
 
 <section class="ecran s-appel">
   <div class="s-appel__bloc">
