@@ -590,6 +590,50 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   transition:transform .45s cubic-bezier(.3,1.3,.5,1),opacity .35s ease}
 @media (prefers-reduced-motion:reduce){.mot{opacity:1;transition:none}.point{animation:none}
   .affirmation{min-height:100vh;display:flex;padding:var(--marge)}}
+/* accueil : sections sous le héros */
+.acc-bloc{padding:130px var(--marge) 40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px;background:var(--fond)}
+.acc-bloc--premier{padding-top:150px}
+.acc-titre{font-size:32px;line-height:36px;max-width:820px}
+.acc-corps{font-size:16px;line-height:22px;max-width:600px;color:var(--gris-2)}
+.acc-lien{font-size:12px;color:var(--gris-2);text-decoration:underline;text-underline-offset:4px;transition:color .18s ease}
+.acc-lien:hover{color:var(--encre)}
+.acc-poles__grille{display:flex;gap:6px;width:100%;max-width:1000px;margin-top:16px}
+.acc-pole{flex:1;background:var(--gris-carte);border-radius:12px;padding:46px 30px;display:flex;flex-direction:column;gap:12px;text-align:left}
+.acc-pole__nom{font-size:20px;line-height:22px}
+.acc-pole__desc{font-size:12px;line-height:16px;color:var(--gris-2)}
+.acc-projets__duo{display:flex;gap:6px;width:100%;max-width:1000px;margin-top:16px}
+.acc-projets__vis{flex:1;border-radius:12px;overflow:hidden;display:block;aspect-ratio:4/3;background:var(--gris-image);
+  transition:transform .5s cubic-bezier(.34,1.5,.55,1)}
+.acc-projets__vis:hover{transform:scale(.984)}
+.acc-projets__vis img{width:100%;height:100%;object-fit:cover;display:block}
+.acc-gains{background:#261B1A;color:#FFFFFF;border-radius:12px;padding:80px clamp(30px,6vw,90px);width:100%;max-width:1000px;
+  display:flex;flex-direction:column;gap:60px;align-items:center}
+.acc-gains .acc-titre{color:#FFFFFF}
+.acc-gains__grille{display:grid;grid-template-columns:1fr 1fr;gap:48px 60px;width:100%;text-align:left}
+.acc-gain{display:flex;flex-direction:column;gap:12px}
+.acc-gain__nom{font-size:20px;line-height:22px;display:flex;align-items:center;gap:16px}
+.acc-gain__nom::before{content:"";width:13px;height:13px;border-radius:2px;background:#FFFFFF;flex:none}
+.acc-gain__desc{font-size:12px;line-height:17px;color:rgba(255,255,255,.75)}
+.acc-faq__liste{width:100%;max-width:760px;text-align:left;margin-top:16px}
+.acc-faq__item{padding:28px 0;border-top:0.5px solid rgba(38,27,26,.3);display:grid;grid-template-columns:250px 1fr;gap:24px}
+.acc-faq__item:last-child{border-bottom:0.5px solid rgba(38,27,26,.3)}
+.acc-faq__q{font-size:14px;line-height:19px;font-weight:500}
+.acc-faq__r{font-size:12px;line-height:17px;color:var(--gris-2)}
+.acc-appel{padding-bottom:170px}
+.acc-appel .appel__titre{font-size:32px}
+@media (max-width:960px){
+  .acc-bloc{padding:90px var(--marge) 30px}
+  .acc-bloc--premier{padding-top:110px}
+  .acc-titre{font-size:24px;line-height:28px}
+  .acc-poles__grille{flex-direction:column}
+  .acc-projets__duo{flex-direction:column}
+  .acc-projets__vis{aspect-ratio:315/220}
+  .acc-gains{padding:60px var(--marge);gap:44px}
+  .acc-gains__grille{grid-template-columns:1fr;gap:36px}
+  .acc-faq__item{grid-template-columns:1fr;gap:8px}
+  .acc-appel{padding-bottom:120px}
+  .acc-appel .appel__titre{font-size:24px}
+}
 /* mentions légales */
 .mentions{padding:170px var(--marge) 140px;max-width:760px;margin:0 auto}
 .mentions h1{font-size:32px;line-height:36px;margin:0 0 70px;font-weight:300}
@@ -676,6 +720,90 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
     </div>
   </div>
 </section>
+
+<section class="acc-bloc acc-bloc--premier">
+  <p class="acc-titre">La plupart des marques parlent. Peu sont perçues.</p>
+  <p class="acc-corps">Votre client se fait une image de vous en quelques secondes. Cette image décide pour lui. Nous la travaillons, le reste suit.</p>
+  <a class="acc-lien" href="#methode">Voir la méthode</a>
+</section>
+
+<section class="acc-bloc">
+  <p class="acc-titre">Trois leviers, une seule perception.</p>
+  <div class="acc-poles__grille">
+    <div class="acc-pole">
+      <p class="acc-pole__nom">Marketing</p>
+      <p class="acc-pole__desc">Attirer les bonnes personnes, au bon moment.</p>
+    </div>
+    <div class="acc-pole">
+      <p class="acc-pole__nom">Direction artistique</p>
+      <p class="acc-pole__desc">Donner une forme à ce que vous valez.</p>
+    </div>
+    <div class="acc-pole">
+      <p class="acc-pole__nom">Communication</p>
+      <p class="acc-pole__desc">Prendre la parole sans casser l'identité.</p>
+    </div>
+  </div>
+  <a class="acc-lien" href="#services">Voir les services</a>
+</section>
+
+<section class="acc-bloc">
+  <p class="acc-titre">Le travail parle mieux que nous.</p>
+  <div class="acc-projets__duo">
+    <a class="acc-projets__vis" href="#projet/clemenceau" aria-label="Voir le projet Clemenceau"><img  src="img/t0.webp" alt=""></a>
+    <a class="acc-projets__vis" href="#projet/polyphonie" aria-label="Voir le projet Polyphonie"><img  src="img/t3.webp" alt=""></a>
+  </div>
+  <a class="acc-lien" href="#projets">Tous les projets</a>
+</section>
+
+<section class="acc-bloc">
+  <div class="acc-gains">
+    <p class="acc-titre">Ce qui change, concrètement.</p>
+    <div class="acc-gains__grille">
+      <div class="acc-gain">
+        <p class="acc-gain__nom">Une lecture claire</p>
+        <p class="acc-gain__desc">Vous savez ce qui bloque et dans quel ordre agir, avant de dépenser.</p>
+      </div>
+      <div class="acc-gain">
+        <p class="acc-gain__nom">Une image qui dure</p>
+        <p class="acc-gain__desc">Construite sur un diagnostic, pas sur une tendance. Elle est pensée pour vieillir lentement.</p>
+      </div>
+      <div class="acc-gain">
+        <p class="acc-gain__nom">Des fichiers à vous</p>
+        <p class="acc-gain__desc">Sources et gabarits livrés. Vous pouvez continuer sans nous.</p>
+      </div>
+      <div class="acc-gain">
+        <p class="acc-gain__nom">Un seul interlocuteur</p>
+        <p class="acc-gain__desc">De l'appel au déploiement, personne à relancer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="acc-bloc acc-faq">
+  <p class="acc-titre">Questions directes, réponses directes.</p>
+  <div class="acc-faq__liste">
+    <div class="acc-faq__item">
+      <p class="acc-faq__q">Combien ça coûte ?</p>
+      <p class="acc-faq__r">Les projets démarrent à 3 000 € HT, les abonnements à 2 000 € par mois. En dessous, il n'y a pas la place pour un diagnostic sérieux. Si votre budget est ailleurs, nous vous le dirons au premier échange.</p>
+    </div>
+    <div class="acc-faq__item">
+      <p class="acc-faq__q">Comment démarre un projet ?</p>
+      <p class="acc-faq__r">Par un appel de trente minutes, sans formulaire. Vous recevez ensuite une recommandation écrite, puis un devis sous 48 heures, en deux niveaux.</p>
+    </div>
+    <div class="acc-faq__item">
+      <p class="acc-faq__q">Et si nous voulons continuer seuls ?</p>
+      <p class="acc-faq__r">Vous gardez tout. Les fichiers sources et le kit vous appartiennent, avec ou sans nous.</p>
+    </div>
+  </div>
+</section>
+
+<section class="acc-bloc acc-appel">
+  <div class="appel">
+    <p class="appel__titre">Trente minutes pour savoir où vous en êtes.</p>
+    <a class="bouton" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Réserver un appel-diagnostic</a>
+  </div>
+</section>
+
 <footer class="pied">
   <div class="pied__marque">
     <span class="pied__logo"><svg viewBox="0 0 92 19" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Odune">
@@ -1293,7 +1421,8 @@ route();
     ".accroche__titre",".accroche__note",".rang",".duree__bloc",".carte",".appel__titre",".appel .bouton",".final",
     ".s-accroche__texte",".s-accroche__bloc>.bouton",".groupe",".s-sans__bloc",".s-appel__bloc",
     ".fixe__lab",".fixe__texte",".tuile",".mosaique .vis",".mosaique-mob .vis",".bandeau",
-    ".a-accroche__texte",".a-accroche__droite .vis",".a-ligne",".a-valeurs__tete",".a-carte"
+    ".a-accroche__texte",".a-accroche__droite .vis",".a-ligne",".a-valeurs__tete",".a-carte",
+    ".acc-titre",".acc-corps",".acc-lien",".acc-pole",".acc-projets__vis",".acc-gains",".acc-faq__item"
   ];
   var els=Array.prototype.slice.call(document.querySelectorAll(sels.join(",")));
   els.forEach(function(e){e.classList.add("rev");});
