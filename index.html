@@ -1718,11 +1718,27 @@ route();
     var pMosa=document.getElementById("mosaique-proj");
     if(pMosa){
       if(p.mosaique){
-        pMosa.innerHTML=p.mosaique.map(function(rang){
-          return '<div class="mosaique__rang">'+rang.map(function(v){
-            return '<div class="vis" style="flex:'+v.fx+' 1 0;aspect-ratio:'+v.ar+'"><img class="vis__img" src="'+v.src+'" alt=""></div>';
-          }).join('')+'</div>';
-        }).join('');
+        var tous=[];
+        p.mosaique.forEach(function(rang){rang.forEach(function(v){tous.push(v);});});
+        var htmlD="", iD=0, mD=0, motifD=[1,2,1,2];
+        while(iD<tous.length){
+          var nD=motifD[mD%motifD.length]; mD++;
+          if(nD===1 || tous.length-iD===1){
+            htmlD+='<div class="vis" style="aspect-ratio:2942/1462"><img class="vis__img" src="'+tous[iD].src+'" alt=""></div>';
+            iD+=1;
+          } else {
+            var a=tous[iD], c=tous[iD+1];
+            var ra=a.ar.split("/"), rc=c.ar.split("/");
+            var fa=(parseFloat(ra[0])/parseFloat(ra[1])).toFixed(4);
+            var fc=(parseFloat(rc[0])/parseFloat(rc[1])).toFixed(4);
+            htmlD+='<div class="mosaique__rang">'
+              +'<div class="vis" style="flex:'+fa+' 1 0;aspect-ratio:'+a.ar+'"><img class="vis__img" src="'+a.src+'" alt=""></div>'
+              +'<div class="vis" style="flex:'+fc+' 1 0;aspect-ratio:'+c.ar+'"><img class="vis__img" src="'+c.src+'" alt=""></div>'
+              +'</div>';
+            iD+=2;
+          }
+        }
+        pMosa.innerHTML=htmlD;
         var pMosaM=document.getElementById("mosaique-proj-mob");
         if(pMosaM){
           var imgs=[];
