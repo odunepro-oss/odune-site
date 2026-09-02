@@ -612,15 +612,14 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 .a-accroche .bouton{margin-top:22px;background:#261B1A;border-color:#261B1A;color:#FFFFFF;align-self:flex-start}
 .a-accroche .bouton:hover{background:var(--fond);border-color:#261B1A;color:#261B1A}
 .a-accroche .indice-defiler{margin-top:26px}
-/* bouton du héros accueil : marron, en bas à droite */
+/* bouton du héros accueil : marron, en bas à gauche sous le texte */
 .ecran-hero{position:relative}
-.ecran-hero .bouton{position:absolute;right:var(--marge);bottom:var(--marge);
+.ecran-hero .bouton{order:2;margin-top:16px;
   background:#261B1A;border-color:#261B1A;color:#FFFFFF}
 .ecran-hero .bouton:hover{background:#FFFFFF;border-color:#FFFFFF;color:#261B1A}
 @media (max-width:760px){
-  .ecran-hero{padding-bottom:calc(var(--marge) + 56px);background-position:100% center}
+  .ecran-hero{background-position:100% center}
   .ecran-hero .hero__titre{font-size:19px;line-height:22px}
-  .ecran-hero .bouton{left:var(--marge);right:auto;bottom:var(--marge)}
 }
 /* bouton dans la colonne services */
 .fixe__cta{margin-top:22px}
@@ -638,8 +637,8 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 .acc-manifeste .acc-lien{margin-top:10px}
 @media (max-width:960px){.acc-manifeste__texte{font-size:22px;line-height:30px}}
 /* accueil : sections sous le héros */
-.acc-bloc{padding:130px var(--marge) 40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px;background:var(--fond)}
-.acc-bloc--premier{padding-top:150px}
+.acc-bloc{padding:200px var(--marge) 70px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px;background:var(--fond)}
+.acc-bloc--premier{padding-top:220px}
 .acc-titre{font-size:32px;line-height:36px;max-width:820px}
 .acc-corps{font-size:16px;line-height:22px;max-width:600px;color:var(--gris-2)}
 .acc-lien{font-size:12px;color:var(--gris-2);text-decoration:underline;text-underline-offset:4px;transition:color .18s ease}
@@ -677,11 +676,11 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 .acc-faq__item[data-ouvert] .acc-faq__depli{grid-template-rows:1fr}
 .acc-faq__r{font-size:12px;line-height:17px;color:var(--gris-2);padding-bottom:26px;max-width:600px}
 @media (prefers-reduced-motion:reduce){.acc-faq__depli,.acc-faq__q svg{transition:none}}
-.acc-appel{padding-bottom:170px}
+.acc-appel{padding-bottom:220px}
 .acc-appel .appel__titre{font-size:32px}
 @media (max-width:960px){
-  .acc-bloc{padding:90px var(--marge) 30px}
-  .acc-bloc--premier{padding-top:110px}
+  .acc-bloc{padding:130px var(--marge) 50px}
+  .acc-bloc--premier{padding-top:150px}
   .acc-titre{font-size:24px;line-height:28px}
   .acc-poles__grille{flex-direction:column}
   .acc-projets__duo{flex-direction:column}
