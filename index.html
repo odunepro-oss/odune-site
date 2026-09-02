@@ -584,7 +584,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 .mot[data-lu]{opacity:1}
 .affirmation{display:block;min-height:280vh;padding:0}
 .affirmation__colle{position:sticky;top:0;min-height:100vh;min-height:100dvh;padding:var(--marge);
-  display:flex;align-items:center;justify-content:center;text-align:center}
+  display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
 .points{position:absolute;inset:0;pointer-events:none}
 .point{position:absolute;display:block;width:3px;height:3px;background:rgba(38,27,26,.8);opacity:0;
   transition:transform .45s cubic-bezier(.3,1.3,.5,1),opacity .35s ease}
@@ -592,7 +592,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   .affirmation{min-height:100vh;display:flex;padding:var(--marge)}}
 /* indice de défilement sur les entêtes plein écran */
 .accroche,.s-accroche{position:relative}
-.indice-defiler{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-top:22px;
+.indice-defiler{display:flex;flex-direction:row;align-items:center;gap:10px;margin-top:22px;
   font-size:10px;line-height:10px;letter-spacing:.1em;text-transform:uppercase;color:#F9F8F7;opacity:.85;pointer-events:none}
 .indice-defiler svg{width:12px;height:14px;animation:indice-bas 2.4s cubic-bezier(.45,0,.55,1) infinite}
 @keyframes indice-bas{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
@@ -1488,8 +1488,27 @@ route();
         e.style.removeProperty("--d");
       },1500);
     });
-  },{threshold:0.08});
+  },{threshold:0.05});
   els.forEach(function(e){io.observe(e);});
+  /* filet de sécurité : tout élément dans l'écran est révélé, même si l'observateur rate */
+  function balayer(){
+    var vh=window.innerHeight;
+    document.querySelectorAll(".rev:not(.vu)").forEach(function(e){
+      var r=e.getBoundingClientRect();
+      if(r.top<vh*0.95&&r.bottom>0){
+        e.classList.add("vu");
+        io.unobserve(e);
+        setTimeout(function(){e.classList.remove("rev","vu");e.style.removeProperty("--d");},1500);
+      }
+    });
+  }
+  var attente=null;
+  window.addEventListener("scroll",function(){
+    if(attente) return;
+    attente=setTimeout(function(){attente=null;balayer();},180);
+  },{passive:true});
+  window.addEventListener("hashchange",function(){setTimeout(balayer,400);});
+  setTimeout(balayer,900);
 })();
 
 /* ----- pourquoi odune : lever de jour piloté par le défilement ----- */
