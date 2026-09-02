@@ -1,0 +1,1499 @@
+<title>Site Odune</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Geist:wght@400&display=swap">
+<style>
+:root{
+  --fond:#F9F8F7; --blanc:#FFFFFF; --pastille:#F0EFEE; --survol:#D9D7D6; --presse:#C7C4C3;
+  --gris-image:#DAD8D7; --encre:#261B1A; --encre-nav:#261B1A; --gris-2:#635B5A; --gris-3:#9B9696;
+  --brun:#261B1A; --rayon:6px; --marge:30px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fond);color:var(--encre);
+  font-family:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-weight:300;letter-spacing:-0.38px;-webkit-font-smoothing:antialiased}
+p{margin:0}
+h1,h2,h3,h4{margin:0;font-size:inherit;font-weight:inherit}
+ul{margin:0;padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:1px solid var(--encre-nav);outline-offset:3px}
+.sans{font-family:"Geist",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-weight:400;letter-spacing:0}
+
+/* bouton */
+.bouton{border:0.5px solid var(--encre);border-radius:var(--rayon);padding:0 20px;
+  display:inline-flex;align-items:center;justify-content:center;font-size:12px;line-height:32px;
+  transition:background-color .2s ease,color .2s ease}
+.bouton:hover{background:var(--encre);color:var(--fond)}
+
+/* blocs pleine hauteur */
+.ecran{min-height:100vh;min-height:100dvh;padding:var(--marge);display:flex}
+
+/* colonne fixe + colonne qui défile */
+.duo{display:flex;align-items:flex-start}
+.fixe{position:sticky;top:0;height:100vh;height:100dvh;flex:none;
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:101px var(--marge) var(--marge)}
+.fixe__lab{display:flex;gap:20px;align-items:center;font-size:11px;line-height:11px;text-transform:uppercase;white-space:nowrap}
+.fixe__lab span:first-of-type{color:var(--encre-nav)}
+.fixe__lab span:last-of-type{color:var(--gris-2)}
+.fixe__texte{display:flex;flex-direction:column;gap:10px;line-height:20px}
+.fixe__corps{font-size:16px;color:var(--encre-nav)}
+.fixe__note{font-size:12px;color:var(--gris-3)}
+.defile{flex:1;min-width:0}
+
+/* placeholders visuels */
+.vis{background:var(--gris-image);border-radius:12px;position:relative;overflow:hidden}
+.vis span{position:absolute;left:14px;bottom:12px;font-size:10px;color:#AAA6A6;letter-spacing:.02em}
+.vis__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.vis:has(.vis__img)>span{display:none}
+
+/* pied de page */
+.pied{border-top:0.5px solid var(--encre);padding:100px var(--marge) var(--marge);
+  display:flex;flex-direction:column;align-items:flex-end;gap:clamp(90px,19vw,243px)}
+.pied__marque{display:flex;flex-direction:column;gap:23px;width:283px}
+.pied__logo{width:282.612px;display:block}
+.pied__logo svg{display:block;width:100%;height:auto}
+.pied__actions{display:flex;gap:23px;font-size:14px;line-height:12px;color:var(--encre-nav)}
+.pied__actions a:hover{opacity:.55}
+.pied__reseaux{display:flex;justify-content:space-between;width:100%;gap:16px;
+  font-size:14px;line-height:12px;color:var(--encre-nav);opacity:.5}
+.pied__reseaux a:hover{opacity:1}
+
+.mention{position:fixed;right:10px;bottom:8px;z-index:60;font-size:8px;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(38,27,26,.35);pointer-events:none}
+
+@media (prefers-reduced-motion:reduce){ .nav__panneau{transition:none} }
+
+:root{--gris-hero:#C6C2C1;--gris-section:#E4E2E1;--gris-carte:#F6F5F5;--encre-nav-fonce:#261B1A}
+.medium{font-weight:500}.regular{font-weight:400}
+br.mob{display:none}
+a.logo,.nav__bascule{transition:opacity .18s ease}
+a.logo:hover,.nav__bascule:hover{opacity:.55}
+/* ============================================================ navigation */
+.nav{
+  position:fixed;
+  top:var(--marge);
+  left:var(--marge);
+  z-index:50;
+  width:606px;
+  background:#261B1A;
+  border-radius:var(--rayon);
+  padding:10px 8px;
+  overflow:hidden;
+  transition:width .55s cubic-bezier(.34,1.25,.5,1),
+             padding .55s cubic-bezier(.34,1.25,.5,1);
+}
+.nav__tete{
+  display:flex;align-items:center;justify-content:center;gap:36px;
+  height:19px;
+}
+.logo{width:91.011px;height:19px;flex:none;display:block}
+.logo svg{display:block;width:100%;height:100%}
+
+.nav__liens{
+  display:flex;align-items:center;gap:36px;
+  font-size:14px;line-height:12px;color:#FFFFFF;white-space:nowrap;
+  transition:opacity .2s ease;
+}
+.nav__liens a{transition:color .18s ease}
+.nav__liens a:hover{color:rgba(255,255,255,.6)}
+
+.nav__bascule{
+  display:none;flex:none;background:none;border:0;padding:0;cursor:pointer;
+  position:relative;
+}
+.nav__bascule .ico-ouvrir{display:block;width:16px;height:12px}
+.nav__bascule .ico-fermer{display:none;width:53px;height:19px}
+
+/* --- état rétracté (après scroll, ou mobile) --- */
+.nav[data-etat="compact"],
+.nav[data-etat="ouvert"]{
+  width:286px;
+  padding:10px;
+}
+.nav[data-etat="compact"] .nav__tete,
+.nav[data-etat="ouvert"] .nav__tete{justify-content:space-between;gap:0}
+.nav[data-etat="compact"] .nav__liens,
+.nav[data-etat="ouvert"] .nav__liens{display:none}
+.nav[data-etat="compact"] .nav__bascule,
+.nav[data-etat="ouvert"] .nav__bascule{display:block}
+
+/* --- panneau déroulé --- */
+.nav__panneau{
+  display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows .55s cubic-bezier(.34,1.2,.5,1);
+}
+.nav__panneau > div{overflow:hidden;min-height:0}
+.nav[data-etat="ouvert"] .nav__panneau{grid-template-rows:1fr}
+.nav[data-etat="ouvert"] .ico-ouvrir{display:none}
+.nav[data-etat="ouvert"] .ico-fermer{display:block}
+
+.nav__liste{
+  display:flex;flex-direction:column;gap:6px;
+  padding-top:32px;padding-bottom:22px;
+}
+.nav__item{
+  display:flex;align-items:center;
+  padding:10px;border-radius:var(--rayon);
+  font-size:14px;line-height:12px;color:#FFFFFF;
+  background:transparent;
+  opacity:0;transform:translateY(14px);
+  transition:background-color .18s ease,color .18s ease,
+    opacity .22s ease,transform .22s ease;
+}
+.nav[data-etat="ouvert"] .nav__item{
+  opacity:1;transform:none;
+  transition:background-color .18s ease,color .18s ease,
+    opacity .6s cubic-bezier(.22,.61,.36,1),transform .6s cubic-bezier(.34,1.56,.64,1);
+}
+.nav[data-etat="ouvert"] .nav__item:nth-child(1){transition-delay:0s,0s,.08s,.08s}
+.nav[data-etat="ouvert"] .nav__item:nth-child(2){transition-delay:0s,0s,.14s,.14s}
+.nav[data-etat="ouvert"] .nav__item:nth-child(3){transition-delay:0s,0s,.20s,.20s}
+.nav[data-etat="ouvert"] .nav__item:nth-child(4){transition-delay:0s,0s,.26s,.26s}
+.nav[data-etat="ouvert"] .nav__item:nth-child(5){transition-delay:0s,0s,.32s,.32s}
+.nav__item:hover{background:rgba(255,255,255,.14)}
+.nav__item:active{background:rgba(255,255,255,.22)}
+.nav__item[aria-current="page"]{background:rgba(255,255,255,.14)}
+.nav :focus-visible{outline-color:#FFFFFF}
+
+.nav__item--fort{background:#FFFFFF;color:#261B1A}
+.nav__item--fort:hover{background:var(--survol)}
+.nav__item--fort:active{background:var(--presse)}
+.nav__item--fort:focus-visible{outline-color:#FFFFFF}
+
+@media (prefers-reduced-motion:reduce){
+  .nav,.nav__panneau{transition:none}
+  .nav__item{opacity:1;transform:none;transition:none}
+}
+
+/* ================================================================== hero */
+.ecran-hero{
+  min-height:100dvh;
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
+  padding:var(--marge);
+}
+.hero{
+  width:529px;max-width:100%;
+  display:flex;flex-direction:column;align-items:flex-start;gap:12px;
+}
+.bouton{
+  border:0.5px solid var(--encre);
+  border-radius:var(--rayon);
+  padding:0 20px;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:12px;line-height:32px;
+  transition:background-color .2s ease,color .2s ease;
+}
+.bouton:hover{background:var(--encre);color:var(--fond)}
+.hero__texte{display:flex;flex-direction:column;align-items:flex-start;gap:1px;width:100%}
+.hero__titre{font-size:32px;line-height:34px}
+.hero__sous{font-size:12px;line-height:32px;opacity:.5}
+
+/* ======================================================== suite factice */
+.suite{padding:0 var(--marge) var(--marge)}
+.suite__bloc{
+  height:70vh;background:#EFEFEF;border-radius:var(--rayon);
+  display:flex;align-items:flex-end;padding:16px;margin-bottom:16px;
+}
+.suite__bloc span{font-size:11px;color:#9A9A9A;letter-spacing:.02em}
+
+/* ================================================================ blocs */
+.section{min-height:100vh;min-height:100dvh;padding:var(--marge);display:flex}
+
+/* 01 — accroche */
+.accroche{
+  background:var(--gris-hero);
+  flex-direction:column;align-items:flex-start;justify-content:flex-end;
+  position:relative;
+}
+.accroche__titre{font-size:30px;line-height:32px;width:100%}
+.accroche__note{
+  position:absolute;top:var(--marge);right:var(--marge);
+  font-size:11px;color:rgba(38,27,26,.45);
+}
+
+/* 02 — affirmation */
+.affirmation{align-items:center;justify-content:center;text-align:center}
+.affirmation p{font-size:20px;line-height:24px;max-width:915px}
+
+/* 03 — séquence épinglée */
+.sequence{position:relative}
+.epingle{
+  position:sticky;top:0;height:100vh;height:100dvh;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.colonne{width:423px;flex:none;align-self:stretch;position:relative;padding:var(--marge)}
+.etape{
+  position:absolute;left:var(--marge);right:var(--marge);bottom:var(--marge);
+  display:flex;flex-direction:column;gap:32px;
+  opacity:0;transform:translateY(12px);pointer-events:none;
+  transition:opacity .5s ease,transform .6s cubic-bezier(.34,1.4,.55,1);
+}
+.etape[data-actif]{opacity:1;transform:none;pointer-events:auto}
+.etape__tete{display:flex;flex-direction:column;gap:8px}
+.etape__titre{font-size:28px;line-height:30px}
+.etape__source{font-size:14px;line-height:18px;opacity:.5}
+.etape__corps{font-size:16px;line-height:18px}
+.etape--vide .etape__titre,
+.etape--vide .etape__source,
+.etape--vide .etape__corps{color:#B5AFAE}
+.reperes{display:flex;gap:6px;margin-bottom:4px}
+.reperes span{width:14px;height:1px;background:var(--encre-nav);opacity:.2;transition:opacity .3s ease}
+.reperes span[data-actif]{opacity:1}
+.visuel{flex:1 1 0;min-width:0;align-self:stretch;padding:var(--marge);display:flex}
+.visuel__cadre{
+  flex:1;border-radius:10px;background:var(--gris-image);
+  display:flex;align-items:flex-end;padding:16px;
+}
+.visuel__cadre span{font-size:11px;color:#AAA6A6}
+
+/* 04 — durée */
+.duree{background:var(--gris-section);align-items:center;justify-content:center}
+.duree__bloc{display:flex;flex-direction:column;gap:16px;max-width:852px;text-align:center}
+.duree__titre{font-size:32px;line-height:32px}
+.duree__corps{font-size:18px;line-height:18px}
+
+/* 05 — étapes + appel */
+.final{
+  padding:0 var(--marge) 200px;
+  display:flex;flex-direction:column;align-items:center;
+  gap:clamp(120px,20vw,280px);
+  position:relative;z-index:1;
+}
+.carte{
+  background:#261B1A;color:#FFFFFF;border-radius:12px;
+  padding:80px var(--marge);
+  display:flex;flex-direction:column;align-items:center;gap:92px;
+  width:100%;max-width:925px;
+  margin-top:-84px;   /* le bloc mord sur la fin de la section grise */
+}
+.carte__titre{font-size:32px;line-height:36px;text-align:center;white-space:nowrap}
+.etapes{display:flex;flex-direction:column;gap:92px;width:100%}
+.rang{display:flex;gap:clamp(40px,12vw,161px);align-items:flex-start;width:100%}
+.rang__num{display:flex;gap:72px;align-items:flex-start;width:166px;flex:none}
+.rang__carre{width:17px;height:17px;border-radius:2px;background:#FFFFFF;flex:none}
+.rang__chiffre{font-size:20px;line-height:18px}
+.rang__texte{
+  display:grid;grid-template-columns:214px minmax(0,1fr);gap:0 0;
+  flex:1;max-width:486px;
+}
+.rang__nom{font-size:20px;line-height:22px}
+.rang__desc{font-size:12px;line-height:16px}
+.rang__desc p + p{margin-top:0}
+
+.appel{display:flex;flex-direction:column;align-items:center;gap:22px}
+.appel__titre{font-size:32px;line-height:32px;text-align:center;max-width:915px}
+.bouton{
+  border:0.5px solid var(--encre);border-radius:var(--rayon);
+  padding:0 20px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:12px;line-height:32px;
+  transition:background-color .2s ease,color .2s ease;
+}
+.bouton:hover{background:var(--encre);color:var(--fond)}
+
+
+.s-accroche{background:var(--blanc);flex-direction:column;align-items:flex-start;justify-content:flex-end}
+.s-accroche__bloc{width:498px;max-width:100%;display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.s-accroche__texte{display:flex;flex-direction:column;gap:12px;width:100%}
+.s-accroche__titre{font-size:30px;line-height:32px}
+.s-accroche__sous{font-size:12px;line-height:16px;opacity:.5}
+
+.fixe--services{width:360px}
+.groupe__img{display:none}
+.only-mob{display:none}
+.lab-mob{display:none}
+.onglet{appearance:none;background:none;border:0;padding:0;cursor:pointer;
+  font-size:11px;line-height:11px;text-transform:uppercase;letter-spacing:0;
+  transition:opacity .2s ease,color .2s ease}
+.onglet:hover{opacity:1;color:#261B1A}
+/* bascule projet / abonnement — ordinateur et mobile */
+.onglet{color:var(--gris-2);opacity:.5;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:0.5px}
+.onglet--projet{color:#261B1A;opacity:1;text-decoration:none}
+body[data-mode-services="abo"] .onglet--projet{color:var(--gris-2);opacity:.5;text-decoration:underline}
+body[data-mode-services="abo"] .onglet--abo{color:#261B1A;opacity:1;text-decoration:none}
+body:not([data-mode-services="abo"]) .mode-abo{display:none !important}
+body[data-mode-services="abo"] .mode-projet{display:none !important}
+@media (min-width:961px){
+  .duo--projet{min-height:1802px}
+  body[data-mode-services="abo"] .duo--projet{min-height:1262px}
+}
+.fixe--services .fixe__corps,.fixe--services .fixe__note{width:300px}
+
+.defile--services{padding:101px 68px 75vh;display:flex;flex-direction:column;gap:300px}
+.groupe{display:grid;grid-template-columns:215px 530px;align-items:start}
+.groupe__titre{font-size:24px;line-height:20px;white-space:nowrap}
+.groupe__titre--haut{line-height:32px}
+.groupe__contenu{display:flex;flex-direction:column;gap:26px}
+.groupe__desc{font-size:18px;line-height:20px;width:429px;max-width:100%}
+.liste{display:flex;flex-direction:column}
+.liste li{font-size:10px;line-height:20px;opacity:.5}
+.liste li + li{padding-top:8px}
+.liste li:not(:last-child){padding-bottom:8px;border-bottom:0.5px solid var(--encre)}
+
+.s-sans{background:var(--fond);align-items:center;justify-content:center;text-align:center;color:var(--brun)}
+.s-sans__bloc{display:flex;flex-direction:column;gap:12px;align-items:center}
+.s-sans__titre{font-size:24px;line-height:32px;width:915px;max-width:100%}
+.s-sans__corps{font-size:16px;line-height:18px;width:574px;max-width:100%}
+
+.s-appel{align-items:center}
+.s-appel__bloc{display:flex;flex-direction:column;gap:12px;align-items:flex-start;width:100%}
+.s-appel__texte{width:529px;max-width:100%;display:flex;flex-direction:column;gap:1px;line-height:32px}
+.s-appel__titre{font-size:30px}
+.s-appel__sous{font-size:12px;opacity:.5}
+
+@media (max-width:960px){
+  .duo{flex-direction:column;align-items:stretch}
+  .lab-desk,.only-desk{display:none}
+  .only-mob{display:block}
+  .lab-mob{display:inline}
+  .fixe__prix.only-mob{display:flex;gap:10px;align-items:flex-end;justify-content:space-between;width:100%}
+  .fixe__prix span{font-size:12px;line-height:20px;color:var(--gris-3)}
+  .fixe__prix svg{width:17px;height:9px;flex:none;margin-bottom:5px}
+  .duo{flex-direction:column}
+  .fixe--services{position:static;height:auto;min-height:100vh;min-height:100dvh;
+    width:100% !important;padding:180px var(--marge) var(--marge)}
+  .fixe--services .fixe__corps,.fixe--services .fixe__note{width:auto;max-width:315px}
+  .defile--services{padding:60px var(--marge) 90px;gap:180px}
+  .defile--abo{padding:170px var(--marge) 170px}
+  .groupe{grid-template-columns:1fr;gap:0}
+  .groupe__titre{white-space:normal;margin-bottom:35px}
+  .groupe__img{display:block;height:192px;background:var(--gris-image);margin-bottom:35px}
+  .groupe__desc{width:auto}
+  .s-sans__bloc{width:100%}
+  .s-sans__titre{width:100%;font-size:24px;line-height:32px}
+  .s-sans__corps{width:100%;font-size:12px;line-height:18px}
+  .s-appel .bouton{width:100%}
+}
+
+.fixe--projets{width:345px}
+.fixe--projets .fixe__corps{width:285px}
+.fixe--projets .fixe__note{width:300px}
+.fixe__lab span,.fixe__texte p{transition:opacity .25s ease}
+.fixe[data-transition] .fixe__lab span,.fixe[data-transition] .fixe__texte p{opacity:0}
+
+.grille{padding:var(--marge);display:flex;gap:6px;align-items:flex-start}
+.grille__col{display:flex;flex-direction:column;gap:6px}
+.grille__col{flex:1 1 0;min-width:0}
+.tuile{display:block;width:100%;transition:transform .5s cubic-bezier(.34,1.5,.55,1),background-color .3s ease}
+.tuile:hover{transform:translateY(-2px);background:#D2D2D2}
+
+/* page projet */
+.fixe--projet{width:345px}
+.fixe--projet .fixe__texte{width:285px}
+.fixe__services{font-size:11px;line-height:20px;color:var(--gris-3);white-space:nowrap}
+.fixe__services p{margin:0}
+.mosaique{padding:var(--marge);display:flex;flex-direction:column;gap:6px}
+.mosaique__rang{display:flex;gap:6px}
+.mosaique .vis{width:100%}
+.mosaique-mob{display:none}
+.bandeau{padding:6px 0;font-size:10px;line-height:12px;color:var(--encre-nav)}
+/* mosaïque par projet, construite depuis les données */
+.mosaique-proj{display:none;padding:var(--marge);flex-direction:column;gap:6px}
+.mosaique-proj .mosaique__rang{display:flex;gap:6px}
+.mosaique-proj .vis{min-width:0}
+#p-projet[data-mosa] .mosaique,#p-projet[data-mosa] .mosaique-mob{display:none !important}
+#p-projet[data-mosa] .mosaique-proj{display:flex}
+
+/* visionneuse plein écran — mobile uniquement */
+.visionneuse{position:fixed;inset:0;z-index:200;background:rgba(38,27,26,.97);
+  display:none;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .28s ease}
+.visionneuse[data-ouverte]{display:flex}
+.visionneuse[data-visible]{opacity:1}
+.visionneuse img{max-width:100%;max-height:100dvh;object-fit:contain;display:block;
+  transform:scale(.82) translateY(26px);
+  transition:transform .55s cubic-bezier(.34,1.56,.64,1)}
+.visionneuse[data-visible] img{transform:none}
+.visionneuse__fermer{position:absolute;top:22px;right:22px;z-index:1;
+  appearance:none;background:none;border:0;padding:12px;cursor:pointer;
+  transition:opacity .18s ease}
+.visionneuse__fermer:hover{opacity:.55}
+.visionneuse__fermer svg{display:block;width:16px;height:16px}
+@media (max-width:960px){#p-projet .vis__img{cursor:pointer}}
+
+.page{display:none}
+.page[data-actif]{display:block}
+.fixe__retour{color:var(--gris-2);opacity:.5;transition:opacity .2s ease}
+.fixe__retour:hover{opacity:1}
+
+@media (max-width:960px){
+  .duo{flex-direction:column;align-items:stretch}
+  .fixe--projet{position:static;height:auto;min-height:545px;width:100% !important;
+    padding:195px var(--marge) 30px;gap:40px;justify-content:space-between}
+  .fixe--projet .fixe__texte{width:285px}
+  .fixe--projet .fixe__corps{order:-1;font-size:12px;line-height:14px}
+  .fixe--projets{position:static;height:auto;min-height:0;width:100% !important;
+    padding:170px var(--marge) 30px;gap:49px;justify-content:flex-start}
+  .fixe--projets .fixe__corps{width:auto;max-width:285px}
+  .fixe--projets .fixe__note{width:auto}
+  /* grille mobile : pleine largeur / deux demi / pleine largeur / deux demi */
+  .grille{flex-wrap:wrap;padding:30px var(--marge)}
+  .grille__col{display:contents}
+  .tuile{width:calc(50% - 3px)}
+  .tuile[data-i="0"]{width:100%;aspect-ratio:315/292 !important;order:0}
+  .tuile[data-i="1"]{aspect-ratio:154.5/224 !important;order:1}
+  .tuile[data-i="2"]{aspect-ratio:154.5/224 !important;order:2}
+  .tuile[data-i="3"]{width:100%;aspect-ratio:315/220 !important;order:3}
+  .tuile[data-i="4"]{aspect-ratio:154.5/220 !important;order:4}
+  .tuile[data-i="5"]{aspect-ratio:154.5/220 !important;order:5}
+  .mosaique{display:none}
+  .mosaique-proj{padding:30px var(--marge)}
+  .mosaique-mob{display:flex;flex-direction:column;gap:6px;padding:30px var(--marge)}
+  .mosaique-mob__rang{display:flex;gap:6px}
+  .mosaique-mob__rang .vis{flex:1 1 0;min-width:0}
+  .mosaique-mob .vis{width:100%}
+}
+
+.a-accroche{display:flex;align-items:stretch;min-height:100vh;min-height:100dvh}
+.a-accroche__gauche{width:345px;flex:none;display:flex;flex-direction:column;justify-content:flex-end;padding:500px var(--marge) var(--marge)}
+.a-accroche__texte{display:flex;flex-direction:column;gap:8px}
+.a-accroche__titre{font-size:30px;line-height:32px}
+.a-accroche__sous{font-size:12px;line-height:16px;opacity:.5}
+.a-accroche__droite{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;padding:var(--marge)}
+.a-accroche__droite .vis{flex:1;border-radius:10px}
+
+.a-lignes{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;gap:58px;padding:0 var(--marge) var(--marge) 537px}
+.a-ligne{display:flex;gap:108px;align-items:flex-start;height:180px}
+.a-ligne__titre{font-size:24px;line-height:32px;width:320px;flex:none}
+.a-ligne__texte{font-size:12px;line-height:14px;flex:1}
+
+.a-pourquoi{background:var(--fond);align-items:center;justify-content:center;text-align:center;color:var(--brun)}
+.a-pourquoi__bloc{display:flex;flex-direction:column;gap:12px;align-items:center}
+.a-pourquoi__titre{font-size:24px;line-height:32px;width:915px;max-width:100%}
+.a-pourquoi__corps{font-size:11px;line-height:14px;width:420px;max-width:100%}
+
+.a-valeurs__tete{padding:140px var(--marge) 30px;display:flex;justify-content:space-between;align-items:center;
+  font-size:9.872px;line-height:9.872px;text-transform:uppercase;letter-spacing:-0.26px}
+.a-valeurs__tete span:first-child{color:#261B1A}
+.a-valeurs__tete a{color:var(--gris-3);font-weight:400;transition:color .2s ease}
+.a-valeurs__tete a:hover{color:#261B1A}
+.a-valeurs{padding:0 16px 180px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.a-carte{width:412px;display:flex;flex-direction:column;gap:6px}
+.a-carte__img{height:299.618px;border-radius:5.385px;background:#1D1210;position:relative;overflow:hidden}
+.a-carte__img span{position:absolute;left:14px;bottom:12px;font-size:10px;color:#6E6666}
+.a-carte__img:has(.vis__img)>span{display:none}
+.a-carte__texte{display:flex;flex-direction:column;gap:5.385px}
+.a-carte__titre{font-size:14px;line-height:17.95px;color:#261B1A}
+.a-carte__desc{font-size:12px;line-height:14px;color:var(--gris-3)}
+
+@media (max-width:960px){
+  /* accroche : visuels au-dessus, texte en bas — cadre 12:9520 */
+  .a-accroche{flex-direction:column;min-height:100dvh}
+  .a-accroche__droite{order:-1;flex:1;padding:99px var(--marge) 0}
+  .a-accroche__droite .vis{min-height:0;flex:1}
+  .a-accroche__gauche{width:100%;flex:none;padding:30px var(--marge)}
+  .a-accroche__texte{max-width:315px}
+  /* deux lignes réparties sur l'écran — cadre 12:10119 */
+  .a-lignes{padding:150px var(--marge);gap:0;min-height:832px;justify-content:space-between}
+  .a-ligne{flex-direction:column;gap:30px;height:auto}
+  .a-ligne__titre{width:auto;max-width:320px;font-size:20px;line-height:22px}
+  .a-ligne__texte{font-size:10px;line-height:12px}
+  /* pourquoi — cadre 12:10133 */
+  .a-pourquoi__bloc{width:100%}
+  .a-pourquoi__titre{width:100%;font-size:24px;line-height:32px}
+  .a-pourquoi__corps{width:100%;font-size:10px}
+  /* valeurs empilées — cadre 12:10152 */
+  .a-valeurs{flex-direction:column;flex-wrap:nowrap;padding:60px var(--marge) 180px;gap:60px}
+  .a-carte{width:100%}
+  .a-carte__img{height:200px}
+}
+/* ================================================================ mobile */
+@media (max-width:860px){
+  br.mob{display:inline}
+  .nav{width:calc(100% - (var(--marge) * 2))}
+
+  /* 01 — accroche */
+  .accroche__titre{font-size:22px;line-height:24px}
+
+  /* 02 — affirmation */
+  .affirmation p{font-size:20px;line-height:24px;max-width:none}
+
+  /* 03 — séquence épinglée aussi sur mobile : image fixe en haut */
+  .epingle{
+    flex-direction:column;align-items:stretch;justify-content:flex-start;
+    padding:80px var(--marge) 50px;gap:30px;
+  }
+  .visuel{order:-1;padding:0;flex:1 1 auto;min-height:0}
+  .colonne{width:100%;position:relative;flex:none;height:216px;padding:0}
+  .etape{left:0;right:0;bottom:0;gap:22px}
+  .etape__titre{font-size:22px;line-height:22px}
+  .etape__source{font-size:12px;line-height:18px}
+  .etape__corps{font-size:12px;line-height:12px}
+  .reperes span{width:12px}
+
+  /* 04 — durée */
+  .duree__bloc{max-width:315px}
+  .duree__titre{font-size:24px;line-height:26px}
+  .duree__corps{font-size:12px;line-height:14px}
+
+  /* 05 — carte + appel */
+  .final{padding:0 var(--marge) 220px;gap:225px}
+  .carte{
+    margin-top:-50px;padding:80px var(--marge);gap:92px;
+    max-width:none;align-items:flex-start;
+  }
+  .carte__titre{font-size:22px;line-height:24px;white-space:normal;align-self:center}
+  .etapes{gap:92px}
+  .rang{flex-direction:column;gap:52px;align-items:flex-start}
+  .rang__num{width:166px;gap:72px;align-items:flex-start}
+  .rang__texte{display:flex;flex-direction:column;gap:30px;max-width:none}
+  .rang__nom{font-size:20px;line-height:22px}
+  .rang__desc{font-size:12px;line-height:16px}
+  .appel__titre{font-size:24px;line-height:26px;max-width:315px}
+
+  /* pied */
+  .pied{align-items:flex-end;padding:100px var(--marge) var(--marge);gap:157px}
+  .pied__marque{width:auto;align-items:flex-end;gap:15.767px}
+  .pied__logo{width:193.734px}
+  .pied__actions{gap:15.767px;font-size:13.6px;line-height:8.226px;letter-spacing:-0.2605px}
+  .pied__reseaux{
+    flex-direction:column;align-items:flex-start;justify-content:flex-end;
+    gap:20px;width:100%;
+  }
+}
+
+/* ================================================================ mobile */
+@media (max-width:760px){
+  .nav{width:calc(100% - (var(--marge) * 2));padding:10px}
+  .nav[data-etat="compact"],
+  .nav[data-etat="ouvert"]{width:calc(100% - (var(--marge) * 2))}
+  .nav__tete{justify-content:space-between;gap:0}
+  .nav__liens{display:none}
+  .nav__bascule{display:block}
+  .hero{width:315px;gap:12px}
+  .hero__texte{gap:12px}
+  .hero__titre{font-size:22px;line-height:24px}
+  .hero__sous{font-size:11px;line-height:14px}
+}
+
+
+@media (prefers-reduced-motion:reduce){.etape{transition:opacity .01ms;transform:none}}
+.route{display:none}.route[data-actif]{display:block;animation:page-entre .55s cubic-bezier(.3,1.25,.5,1)}
+@keyframes page-entre{from{opacity:0;transform:translateY(14px)}}
+.rev{opacity:0;transform:translateY(26px)}
+.rev.vu{opacity:1;transform:translateY(0);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform 1s cubic-bezier(.3,1.35,.45,1);transition-delay:var(--d,0ms)}
+@media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none}.route[data-actif]{animation:none}}
+/* surlignage des mots + points — uniquement l'affirmation de la page méthode */
+.mot{opacity:.18;transition:opacity .3s linear}
+.mot[data-lu]{opacity:1}
+.affirmation{display:block;min-height:280vh;padding:0}
+.affirmation__colle{position:sticky;top:0;min-height:100vh;min-height:100dvh;padding:var(--marge);
+  display:flex;align-items:center;justify-content:center;text-align:center}
+.points{position:absolute;inset:0;pointer-events:none}
+.point{position:absolute;display:block;width:3px;height:3px;background:rgba(38,27,26,.8);opacity:0;
+  transition:transform .45s cubic-bezier(.3,1.3,.5,1),opacity .35s ease}
+@media (prefers-reduced-motion:reduce){.mot{opacity:1;transition:none}.point{animation:none}
+  .affirmation{min-height:100vh;display:flex;padding:var(--marge)}}
+/* mentions légales */
+.mentions{padding:170px var(--marge) 140px;max-width:760px;margin:0 auto}
+.mentions h1{font-size:32px;line-height:36px;margin:0 0 70px;font-weight:300}
+.mentions h2{font-size:14px;line-height:20px;margin:48px 0 14px;font-weight:500}
+.mentions p{font-size:12px;line-height:18px;color:#635B5A;margin:0 0 10px}
+.mentions a{text-decoration:underline;text-underline-offset:3px;transition:opacity .18s ease}
+.mentions a:hover{opacity:.55}
+@media (max-width:960px){.mentions{padding:150px var(--marge) 100px}.mentions h1{font-size:24px;line-height:28px;margin-bottom:50px}}
+/* pourquoi odune : lever de jour au défilement (façon icomat), marron -> blanc pur */
+.a-pourquoi{display:block;min-height:250vh;padding:0;background:#261B1A;color:#F9F8F7}
+.a-pourquoi__colle{position:sticky;top:0;min-height:100vh;min-height:100dvh;padding:var(--marge);
+  display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#261B1A}
+/* arc blanc : il monte du bas et finit par couvrir tout l'écran */
+.a-pourquoi__halo{position:absolute;pointer-events:none;left:-60%;right:-60%;top:100%;height:260%;
+  background:radial-gradient(ellipse 46% 40% at 50% 40%,#FFFFFF 0%,#FFFFFF 60%,rgba(255,255,255,.75) 72%,rgba(255,255,255,0) 85%);
+  will-change:transform}
+.a-pourquoi__blanc{position:absolute;inset:0;pointer-events:none;background:#FFFFFF;opacity:0}
+/* après la section : tout le bas de la page agence en blanc pur */
+#r-agence .a-valeurs__tete,#r-agence .a-valeurs,#r-agence .pied{background:#FFFFFF}
+.a-pourquoi__colle .a-pourquoi__bloc{position:relative;z-index:1}
+@media (prefers-reduced-motion:reduce){.a-pourquoi{min-height:100vh;color:#261B1A;background:#FFFFFF}
+  .a-pourquoi__colle{background:#FFFFFF}.a-pourquoi__halo{display:none}}
+.ecran-hero{background-image:url(img/fond-accueil.webp);background-size:cover;background-position:center}
+.accroche{background-image:url(img/fond-methode.webp);background-size:cover;background-position:center}
+.s-accroche{background-image:url(img/fond-services.webp);background-size:cover;background-position:center}
+.duree{background-image:url(img/fond-duree.webp);background-size:cover;background-position:center}
+.visuel__cadre{background-image:url(img/visuel-decision.webp);background-size:cover;background-position:center}
+.s-sans{background-image:url(img/fond-sans.webp);background-size:cover;background-position:center}
+.s-accroche{color:#F9F8F7}
+.s-accroche .s-accroche__sous{opacity:.7}
+.s-accroche .bouton{border-color:#F9F8F7;color:#F9F8F7}
+.s-accroche .bouton:hover{background:#F9F8F7;color:#261B1A}
+.duree{color:#F9F8F7}
+.duree .duree__bloc{margin-top:26vh}
+.s-sans{color:#F9F8F7}
+.accroche__titre{color:#F9F8F7}
+.s-sans .s-sans__bloc{margin-bottom:22vh}
+.visuel__cadre span{display:none}
+</style>
+
+<nav class="nav" id="nav" data-etat="large">
+  <div class="nav__tete">
+    <a class="logo" href="#accueil" data-route="accueil"><svg viewBox="0 0 92 19" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Odune">
+<path d="M9.48199 1.435C5.04703 1.435 1.43986 5.02999 1.43986 9.45C1.43986 13.87 5.04703 17.465 9.48199 17.465C13.917 17.465 17.5241 13.87 17.5241 9.45C17.5241 5.02999 13.917 1.435 9.48199 1.435ZM9.48199 18.9C4.25434 18.9 0 14.66 0 9.45C0 4.24001 4.25434 0 9.48199 0C14.7096 0 18.964 4.24001 18.964 9.45C18.964 14.66 14.7096 18.9 9.48199 18.9Z" fill="#FFFFFF"/>
+<path d="M9.4813 6.25909C6.38085 6.25909 3.85732 8.7741 3.85732 11.8641C3.85732 14.9541 6.38085 17.4691 9.4813 17.4691C12.5817 17.4691 15.1053 14.9541 15.1053 11.8641C15.1053 8.7741 12.5817 6.25909 9.4813 6.25909ZM9.4813 18.8991C5.58816 18.8991 2.41748 15.7441 2.41748 11.8591C2.41748 7.9741 5.58314 4.81909 9.4813 4.81909C13.3795 4.81909 16.5451 7.9741 16.5451 11.8591C16.5451 15.7441 13.3795 18.8991 9.4813 18.8991Z" fill="#FFFFFF"/>
+<path d="M9.48236 11.0777C7.71641 11.0777 6.27654 12.5127 6.27654 14.2727C6.27654 16.0327 7.71641 17.4677 9.48236 17.4677C11.2483 17.4677 12.6882 16.0327 12.6882 14.2727C12.6882 12.5127 11.2483 11.0777 9.48236 11.0777ZM9.48236 18.8977C6.92372 18.8977 4.84172 16.8227 4.84172 14.2727C4.84172 11.7227 6.92372 9.64772 9.48236 9.64772C12.041 9.64772 14.123 11.7227 14.123 14.2727C14.123 16.8227 12.041 18.8977 9.48236 18.8977Z" fill="#FFFFFF"/>
+<path d="M37.8966 16.37C36.2912 18.125 34.1741 19 31.5404 19C28.9064 19 26.7992 18.125 25.209 16.37C23.6036 14.65 22.8009 12.36 22.8009 9.50001C22.8009 6.64 23.6036 4.36001 25.209 2.60501C26.8043 0.87 28.9115 0 31.5452 0C34.1791 0 36.2963 0.87 37.9017 2.60501C39.4921 4.375 40.2847 6.67502 40.2847 9.50001C40.2847 12.325 39.4921 14.635 37.9017 16.37H37.8966ZM26.8293 14.995C28.0084 16.355 29.5786 17.04 31.5452 17.04C33.512 17.04 35.0822 16.36 36.2613 14.995C37.4401 13.65 38.0271 11.82 38.0271 9.50501C38.0271 7.19 37.4351 5.36001 36.2613 4.01501C35.0822 2.65501 33.512 1.97 31.5452 1.97C29.5786 1.97 28.0084 2.64999 26.8293 4.01501C25.6503 5.36001 25.0635 7.19 25.0635 9.50501C25.0635 11.82 25.6503 13.65 26.8293 14.995Z" fill="#FFFFFF"/>
+<path d="M51.4149 7.30467V0.409675H53.4668V18.5947H51.5203V16.5497C50.4616 18.1147 48.9467 18.8997 46.9849 18.8997C45.1238 18.8997 43.6337 18.2697 42.5248 17.0097C41.3962 15.7497 40.8342 14.0797 40.8342 12.0047C40.8342 9.92969 41.3962 8.21467 42.5248 6.97468C43.6185 5.72969 45.1035 5.10967 46.9849 5.10967C48.8663 5.10967 50.3564 5.83967 51.4199 7.30467H51.4149ZM44.1404 15.7597C44.9081 16.6297 45.9414 17.0597 47.2409 17.0597C48.5401 17.0597 49.5737 16.6097 50.3412 15.7047C51.1089 14.8197 51.4952 13.5847 51.4952 11.9997C51.4952 10.4147 51.1089 9.19968 50.3412 8.29468C49.5737 7.38968 48.5401 6.93968 47.2409 6.93968C45.9414 6.93968 44.9281 7.40469 44.1553 8.32967C43.3777 9.25968 42.9914 10.5147 42.9914 12.0947C42.9914 13.6747 43.3777 14.8797 44.1454 15.7447L44.1404 15.7597Z" fill="#FFFFFF"/>
+<path d="M63.7136 12.8727V5.41775H65.7656V18.5978H63.8191V16.6327C62.8106 18.1478 61.4259 18.9078 59.67 18.9078C58.2002 18.9078 57.0561 18.5078 56.2333 17.7078C55.4157 16.9078 55.0043 15.7827 55.0043 14.3378V5.41275H57.0561V14.1228C57.0561 16.0827 58.0646 17.0578 60.0813 17.0578C61.0397 17.0578 61.8824 16.6977 62.62 15.9828C63.3525 15.2678 63.7238 14.2277 63.7238 12.8678L63.7136 12.8727Z" fill="#FFFFFF"/>
+<path d="M73.4028 5.10803C74.8728 5.10803 76.0167 5.50801 76.8343 6.30803C77.6522 7.10802 78.0636 8.23302 78.0636 9.67804V18.593H76.0116V9.88304C76.0116 7.92303 75.0031 6.94803 72.9864 6.94803C72.0283 6.94803 71.1853 7.30803 70.4477 8.02302C69.7155 8.73804 69.3441 9.77803 69.3441 11.138V18.593H67.2922V5.41302H69.2387V7.37802C70.2472 5.86303 71.6319 5.10303 73.3927 5.10303L73.4028 5.10803Z" fill="#FFFFFF"/>
+<path d="M91.0057 12.0045V12.7195H80.9616C81.062 14.1495 81.4635 15.2245 82.1658 15.9495C82.8681 16.6745 83.8214 17.0345 85.0355 17.0345C86.8616 17.0345 88.0356 16.2145 88.5474 14.5845H90.6744C90.3132 15.9145 89.6509 16.9645 88.6777 17.7395C87.7044 18.5145 86.4753 18.8995 84.9853 18.8995C83.1591 18.8995 81.6792 18.2795 80.5503 17.0345C79.4064 15.7895 78.8346 14.1145 78.8346 12.0045C78.8346 9.8945 79.3965 8.25949 80.5252 6.99949C81.634 5.73949 83.1039 5.1095 84.9351 5.1095C86.7663 5.1095 88.3165 5.76449 89.3952 7.0745C90.4739 8.38449 91.0107 10.0295 91.0107 12.0045H91.0057ZM84.93 6.97449C83.8515 6.97449 82.9736 7.3095 82.2913 7.9845C81.609 8.6595 81.1824 9.6245 81.0118 10.8845H88.8031C88.7028 9.72449 88.3066 8.78449 87.6243 8.06448C86.942 7.3395 86.0439 6.97948 84.9351 6.97948L84.93 6.97449Z" fill="#FFFFFF"/>
+</svg></a>
+    <span class="nav__liens">
+      <a href="#methode" data-route="methode">Méthode</a>
+      <a href="#services" data-route="services">Services</a>
+      <a href="#projets" data-route="projets">Projets</a>
+      <a href="#agence" data-route="agence">Agence</a>
+      <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Démarrer</a>
+    </span>
+    <button class="nav__bascule" id="bascule" aria-expanded="false" aria-controls="panneau" aria-label="Ouvrir le menu">
+      <svg class="ico-ouvrir" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M1 11H15M1 6H15M1 1H15" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="ico-fermer" viewBox="0 0 53 19" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M39 9.5H53" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="nav__panneau" id="panneau"><div><div class="nav__liste">
+    <a class="nav__item" href="#methode" data-route="methode">Méthode</a>
+    <a class="nav__item" href="#services" data-route="services">Services</a>
+    <a class="nav__item" href="#projets" data-route="projets">Projets</a>
+    <a class="nav__item" href="#agence" data-route="agence">Agence</a>
+    <a class="nav__item nav__item--fort" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Démarrer</a>
+  </div></div></div>
+</nav>
+
+<div class="route" id="r-accueil" data-actif>
+<section class="ecran-hero">
+  <div class="hero">
+    <a class="bouton" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Réserver un appel-diagnostic</a>
+    <div class="hero__texte">
+      <p class="hero__titre">Les gens n'achètent jamais votre produit. Ils achètent la perception qu'ils en ont.</p>
+      <p class="hero__sous">Studio-conseil, Paris. Marketing, direction artistique, communication.</p>
+    </div>
+  </div>
+</section>
+<footer class="pied">
+  <div class="pied__marque">
+    <span class="pied__logo"><svg viewBox="0 0 92 19" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Odune">
+<path d="M9.48199 1.435C5.04703 1.435 1.43986 5.02999 1.43986 9.45C1.43986 13.87 5.04703 17.465 9.48199 17.465C13.917 17.465 17.5241 13.87 17.5241 9.45C17.5241 5.02999 13.917 1.435 9.48199 1.435ZM9.48199 18.9C4.25434 18.9 0 14.66 0 9.45C0 4.24001 4.25434 0 9.48199 0C14.7096 0 18.964 4.24001 18.964 9.45C18.964 14.66 14.7096 18.9 9.48199 18.9Z" fill="#261B1A"/>
+<path d="M9.4813 6.25909C6.38085 6.25909 3.85732 8.7741 3.85732 11.8641C3.85732 14.9541 6.38085 17.4691 9.4813 17.4691C12.5817 17.4691 15.1053 14.9541 15.1053 11.8641C15.1053 8.7741 12.5817 6.25909 9.4813 6.25909ZM9.4813 18.8991C5.58816 18.8991 2.41748 15.7441 2.41748 11.8591C2.41748 7.9741 5.58314 4.81909 9.4813 4.81909C13.3795 4.81909 16.5451 7.9741 16.5451 11.8591C16.5451 15.7441 13.3795 18.8991 9.4813 18.8991Z" fill="#261B1A"/>
+<path d="M9.48236 11.0777C7.71641 11.0777 6.27654 12.5127 6.27654 14.2727C6.27654 16.0327 7.71641 17.4677 9.48236 17.4677C11.2483 17.4677 12.6882 16.0327 12.6882 14.2727C12.6882 12.5127 11.2483 11.0777 9.48236 11.0777ZM9.48236 18.8977C6.92372 18.8977 4.84172 16.8227 4.84172 14.2727C4.84172 11.7227 6.92372 9.64772 9.48236 9.64772C12.041 9.64772 14.123 11.7227 14.123 14.2727C14.123 16.8227 12.041 18.8977 9.48236 18.8977Z" fill="#261B1A"/>
+<path d="M37.8966 16.37C36.2912 18.125 34.1741 19 31.5404 19C28.9064 19 26.7992 18.125 25.209 16.37C23.6036 14.65 22.8009 12.36 22.8009 9.50001C22.8009 6.64 23.6036 4.36001 25.209 2.60501C26.8043 0.87 28.9115 0 31.5452 0C34.1791 0 36.2963 0.87 37.9017 2.60501C39.4921 4.375 40.2847 6.67502 40.2847 9.50001C40.2847 12.325 39.4921 14.635 37.9017 16.37H37.8966ZM26.8293 14.995C28.0084 16.355 29.5786 17.04 31.5452 17.04C33.512 17.04 35.0822 16.36 36.2613 14.995C37.4401 13.65 38.0271 11.82 38.0271 9.50501C38.0271 7.19 37.4351 5.36001 36.2613 4.01501C35.0822 2.65501 33.512 1.97 31.5452 1.97C29.5786 1.97 28.0084 2.64999 26.8293 4.01501C25.6503 5.36001 25.0635 7.19 25.0635 9.50501C25.0635 11.82 25.6503 13.65 26.8293 14.995Z" fill="#261B1A"/>
+<path d="M51.4149 7.30467V0.409675H53.4668V18.5947H51.5203V16.5497C50.4616 18.1147 48.9467 18.8997 46.9849 18.8997C45.1238 18.8997 43.6337 18.2697 42.5248 17.0097C41.3962 15.7497 40.8342 14.0797 40.8342 12.0047C40.8342 9.92969 41.3962 8.21467 42.5248 6.97468C43.6185 5.72969 45.1035 5.10967 46.9849 5.10967C48.8663 5.10967 50.3564 5.83967 51.4199 7.30467H51.4149ZM44.1404 15.7597C44.9081 16.6297 45.9414 17.0597 47.2409 17.0597C48.5401 17.0597 49.5737 16.6097 50.3412 15.7047C51.1089 14.8197 51.4952 13.5847 51.4952 11.9997C51.4952 10.4147 51.1089 9.19968 50.3412 8.29468C49.5737 7.38968 48.5401 6.93968 47.2409 6.93968C45.9414 6.93968 44.9281 7.40469 44.1553 8.32967C43.3777 9.25968 42.9914 10.5147 42.9914 12.0947C42.9914 13.6747 43.3777 14.8797 44.1454 15.7447L44.1404 15.7597Z" fill="#261B1A"/>
+<path d="M63.7136 12.8727V5.41775H65.7656V18.5978H63.8191V16.6327C62.8106 18.1478 61.4259 18.9078 59.67 18.9078C58.2002 18.9078 57.0561 18.5078 56.2333 17.7078C55.4157 16.9078 55.0043 15.7827 55.0043 14.3378V5.41275H57.0561V14.1228C57.0561 16.0827 58.0646 17.0578 60.0813 17.0578C61.0397 17.0578 61.8824 16.6977 62.62 15.9828C63.3525 15.2678 63.7238 14.2277 63.7238 12.8678L63.7136 12.8727Z" fill="#261B1A"/>
+<path d="M73.4028 5.10803C74.8728 5.10803 76.0167 5.50801 76.8343 6.30803C77.6522 7.10802 78.0636 8.23302 78.0636 9.67804V18.593H76.0116V9.88304C76.0116 7.92303 75.0031 6.94803 72.9864 6.94803C72.0283 6.94803 71.1853 7.30803 70.4477 8.02302C69.7155 8.73804 69.3441 9.77803 69.3441 11.138V18.593H67.2922V5.41302H69.2387V7.37802C70.2472 5.86303 71.6319 5.10303 73.3927 5.10303L73.4028 5.10803Z" fill="#261B1A"/>
+<path d="M91.0057 12.0045V12.7195H80.9616C81.062 14.1495 81.4635 15.2245 82.1658 15.9495C82.8681 16.6745 83.8214 17.0345 85.0355 17.0345C86.8616 17.0345 88.0356 16.2145 88.5474 14.5845H90.6744C90.3132 15.9145 89.6509 16.9645 88.6777 17.7395C87.7044 18.5145 86.4753 18.8995 84.9853 18.8995C83.1591 18.8995 81.6792 18.2795 80.5503 17.0345C79.4064 15.7895 78.8346 14.1145 78.8346 12.0045C78.8346 9.8945 79.3965 8.25949 80.5252 6.99949C81.634 5.73949 83.1039 5.1095 84.9351 5.1095C86.7663 5.1095 88.3165 5.76449 89.3952 7.0745C90.4739 8.38449 91.0107 10.0295 91.0107 12.0045H91.0057ZM84.93 6.97449C83.8515 6.97449 82.9736 7.3095 82.2913 7.9845C81.609 8.6595 81.1824 9.6245 81.0118 10.8845H88.8031C88.7028 9.72449 88.3066 8.78449 87.6243 8.06448C86.942 7.3395 86.0439 6.97948 84.9351 6.97948L84.93 6.97449Z" fill="#261B1A"/>
+</svg></span>
+    <div class="pied__actions"><a href="mailto:contact@odune.fr">Nous contacter</a><a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Démarrer un projet</a></div>
+  </div>
+  <div class="pied__reseaux">
+    <a href="https://www.instagram.com/odune.fr/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/company/odune/" target="_blank" rel="noopener">Linkedin</a><a href="https://www.tiktok.com/@odune.fr" target="_blank" rel="noopener">Tiktok</a><a href="https://wa.me/33743664075" target="_blank" rel="noopener">Whatsapp</a><a href="#mentions">Mentions légales</a>
+  </div>
+</footer>
+</div>
+
+<div class="route" id="r-methode">
+<!-- 01 ---------------------------------------------------------------- -->
+<section class="section accroche">
+  <span class="accroche__note">Visuel plein écran à venir</span>
+  <h1 class="accroche__titre">Avant de créer, comprendre.</h1>
+</section>
+
+<!-- 02 ---------------------------------------------------------------- -->
+<section class="section affirmation">
+  <p>La plupart des agences commencent par des planches d'inspiration. Nous commençons par ce que le <span class="medium">cerveau de votre client</span> fait de votre marque, sans lui demander son avis.</p>
+</section>
+
+<!-- 03 ---------------------------------------------------------------- -->
+<section class="sequence" id="sequence">
+  <div class="epingle">
+    <div class="colonne">
+
+      <div class="etape" data-index="0" data-actif>
+        <div class="etape__tete">
+          <div class="reperes" aria-hidden="true"><span data-actif></span><span></span><span></span><span></span></div>
+          <p class="etape__titre">Une décision d'achat est prise avant d'être pensée.</p>
+          <p class="etape__source">Kahneman a décrit deux modes de pensée.</p>
+        </div>
+        <div class="etape__corps">
+          <p>Le premier est <span class="regular">rapide et émotionnel</span>, le second <span class="regular">lent et raisonné</span>. Le premier choisit votre marque. Le second justifie le choix.</p>
+          <p>Nous concevons pour le premier et nous écrivons pour le second.</p>
+        </div>
+      </div>
+
+      <div class="etape" data-index="1">
+        <div class="etape__tete">
+          <div class="reperes" aria-hidden="true"><span></span><span data-actif></span><span></span><span></span></div>
+          <p class="etape__titre">Le visuel dit le prix avant l'étiquette.</p>
+          <p class="etape__source">C'est l'effet de halo, décrit en 1920.</p>
+        </div>
+        <div class="etape__corps">
+          <p>Un élément perçu comme <span class="regular">soigné</span> rend tout le reste crédible, tarif compris. Il joue aussi dans l'autre sens.</p>
+          <p>Un site <span class="regular">daté</span> fait baisser le prix acceptable, même si le service vaut le double.</p>
+        </div>
+      </div>
+
+      <div class="etape" data-index="2">
+        <div class="etape__tete">
+          <div class="reperes" aria-hidden="true"><span></span><span></span><span data-actif></span><span></span></div>
+          <p class="etape__titre">Chaque secteur a une grammaire visuelle.</p>
+          <p class="etape__source">Votre client lit ces codes sans le savoir.</p>
+        </div>
+        <div class="etape__corps">
+          <p>Le serif fin dit le <span class="regular">luxe</span>. Le vert désaturé dit le <span class="regular">naturel</span>. L'espace vide dit la <span class="regular">rareté</span>.</p>
+          <p>Nous les cartographions, concurrents compris, avant de choisir une couleur.</p>
+        </div>
+      </div>
+
+      <div class="etape" data-index="3">
+        <div class="etape__tete">
+          <div class="reperes" aria-hidden="true"><span></span><span></span><span></span><span data-actif></span></div>
+          <p class="etape__titre">Le familier rassure. Le mimétisme efface.</p>
+          <p class="etape__source">En 1933, von Restorff a montré qu'on retient l'élément qui rompt la série.</p>
+        </div>
+        <div class="etape__corps">
+          <p>Le cerveau préfère ce qu'il <span class="regular">reconnaît vite</span>. C'est pour ça que tous les sites d'un secteur se ressemblent, et qu'aucun ne vaut plus que l'autre.</p>
+          <p>Nous cherchons <span class="regular">ce détail-là</span>.</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="visuel">
+      <div class="visuel__cadre"><span>Visuel fixe — identique pour les quatre textes</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 ---------------------------------------------------------------- -->
+<section class="section duree">
+  <div class="duree__bloc">
+    <p class="duree__titre">Conçu pour tenir<br class="mob"> dix ans.</p>
+    <p class="duree__corps">Une identité construite sur une tendance vieillit avec elle. Une identité construite sur la perception du client tient tant que le client reste le même. Vous recevez les sources. Vous pouvez continuer sans nous.</p>
+  </div>
+</section>
+
+<!-- 05 ---------------------------------------------------------------- -->
+<section class="final">
+  <div class="carte">
+    <p class="carte__titre">Quatre étapes,<br class="mob"> dans cet ordre.</p>
+    <div class="etapes">
+
+      <div class="rang">
+        <div class="rang__num"><span class="rang__carre"></span><span class="rang__chiffre">1</span></div>
+        <div class="rang__texte">
+          <p class="rang__nom">Appel-diagnostic</p>
+          <div class="rang__desc">
+            <p>Trente minutes, sans formulaire.</p>
+            <p>Nous relevons ce qui bloque.</p>
+            <p>Aucune recommandation à ce stade.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rang">
+        <div class="rang__num"><span class="rang__carre"></span><span class="rang__chiffre">2</span></div>
+        <div class="rang__texte">
+          <p class="rang__nom">Recommandation<br>écrite</p>
+          <div class="rang__desc">
+            <p>Le problème nommé, le mécanisme expliqué, les actions ordonnées du nécessaire au confortable.</p>
+            <p>Le document vous appartient.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rang">
+        <div class="rang__num"><span class="rang__carre"></span><span class="rang__chiffre">3</span></div>
+        <div class="rang__texte">
+          <p class="rang__nom">Devis</p>
+          <div class="rang__desc">
+            <p>Sous 48 heures. Il reprend l'ordre de la recommandation, en deux niveaux, Essentielle et Complète.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rang">
+        <div class="rang__num"><span class="rang__carre"></span><span class="rang__chiffre">4</span></div>
+        <div class="rang__texte">
+          <p class="rang__nom">Exécution</p>
+          <div class="rang__desc">
+            <p>Avec nous, jusqu'au déploiement. Ou sans nous, avec les fichiers sources.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="appel">
+    <p class="appel__titre">Le diagnostic<br class="mob"> commence par un appel.</p>
+    <a class="bouton" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Réserver un appel-diagnostic</a>
+  </div>
+</section>
+
+
+<footer class="pied">
+  <div class="pied__marque">
+    <span class="pied__logo"><svg viewBox="0 0 92 19" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Odune">
+<path d="M9.48199 1.435C5.04703 1.435 1.43986 5.02999 1.43986 9.45C1.43986 13.87 5.04703 17.465 9.48199 17.465C13.917 17.465 17.5241 13.87 17.5241 9.45C17.5241 5.02999 13.917 1.435 9.48199 1.435ZM9.48199 18.9C4.25434 18.9 0 14.66 0 9.45C0 4.24001 4.25434 0 9.48199 0C14.7096 0 18.964 4.24001 18.964 9.45C18.964 14.66 14.7096 18.9 9.48199 18.9Z" fill="#261B1A"/>
+<path d="M9.4813 6.25909C6.38085 6.25909 3.85732 8.7741 3.85732 11.8641C3.85732 14.9541 6.38085 17.4691 9.4813 17.4691C12.5817 17.4691 15.1053 14.9541 15.1053 11.8641C15.1053 8.7741 12.5817 6.25909 9.4813 6.25909ZM9.4813 18.8991C5.58816 18.8991 2.41748 15.7441 2.41748 11.8591C2.41748 7.9741 5.58314 4.81909 9.4813 4.81909C13.3795 4.81909 16.5451 7.9741 16.5451 11.8591C16.5451 15.7441 13.3795 18.8991 9.4813 18.8991Z" fill="#261B1A"/>
+<path d="M9.48236 11.0777C7.71641 11.0777 6.27654 12.5127 6.27654 14.2727C6.27654 16.0327 7.71641 17.4677 9.48236 17.4677C11.2483 17.4677 12.6882 16.0327 12.6882 14.2727C12.6882 12.5127 11.2483 11.0777 9.48236 11.0777ZM9.48236 18.8977C6.92372 18.8977 4.84172 16.8227 4.84172 14.2727C4.84172 11.7227 6.92372 9.64772 9.48236 9.64772C12.041 9.64772 14.123 11.7227 14.123 14.2727C14.123 16.8227 12.041 18.8977 9.48236 18.8977Z" fill="#261B1A"/>
+<path d="M37.8966 16.37C36.2912 18.125 34.1741 19 31.5404 19C28.9064 19 26.7992 18.125 25.209 16.37C23.6036 14.65 22.8009 12.36 22.8009 9.50001C22.8009 6.64 23.6036 4.36001 25.209 2.60501C26.8043 0.87 28.9115 0 31.5452 0C34.1791 0 36.2963 0.87 37.9017 2.60501C39.4921 4.375 40.2847 6.67502 40.2847 9.50001C40.2847 12.325 39.4921 14.635 37.9017 16.37H37.8966ZM26.8293 14.995C28.0084 16.355 29.5786 17.04 31.5452 17.04C33.512 17.04 35.0822 16.36 36.2613 14.995C37.4401 13.65 38.0271 11.82 38.0271 9.50501C38.0271 7.19 37.4351 5.36001 36.2613 4.01501C35.0822 2.65501 33.512 1.97 31.5452 1.97C29.5786 1.97 28.0084 2.64999 26.8293 4.01501C25.6503 5.36001 25.0635 7.19 25.0635 9.50501C25.0635 11.82 25.6503 13.65 26.8293 14.995Z" fill="#261B1A"/>
+<path d="M51.4149 7.30467V0.409675H53.4668V18.5947H51.5203V16.5497C50.4616 18.1147 48.9467 18.8997 46.9849 18.8997C45.1238 18.8997 43.6337 18.2697 42.5248 17.0097C41.3962 15.7497 40.8342 14.0797 40.8342 12.0047C40.8342 9.92969 41.3962 8.21467 42.5248 6.97468C43.6185 5.72969 45.1035 5.10967 46.9849 5.10967C48.8663 5.10967 50.3564 5.83967 51.4199 7.30467H51.4149ZM44.1404 15.7597C44.9081 16.6297 45.9414 17.0597 47.2409 17.0597C48.5401 17.0597 49.5737 16.6097 50.3412 15.7047C51.1089 14.8197 51.4952 13.5847 51.4952 11.9997C51.4952 10.4147 51.1089 9.19968 50.3412 8.29468C49.5737 7.38968 48.5401 6.93968 47.2409 6.93968C45.9414 6.93968 44.9281 7.40469 44.1553 8.32967C43.3777 9.25968 42.9914 10.5147 42.9914 12.0947C42.9914 13.6747 43.3777 14.8797 44.1454 15.7447L44.1404 15.7597Z" fill="#261B1A"/>
+<path d="M63.7136 12.8727V5.41775H65.7656V18.5978H63.8191V16.6327C62.8106 18.1478 61.4259 18.9078 59.67 18.9078C58.2002 18.9078 57.0561 18.5078 56.2333 17.7078C55.4157 16.9078 55.0043 15.7827 55.0043 14.3378V5.41275H57.0561V14.1228C57.0561 16.0827 58.0646 17.0578 60.0813 17.0578C61.0397 17.0578 61.8824 16.6977 62.62 15.9828C63.3525 15.2678 63.7238 14.2277 63.7238 12.8678L63.7136 12.8727Z" fill="#261B1A"/>
+<path d="M73.4028 5.10803C74.8728 5.10803 76.0167 5.50801 76.8343 6.30803C77.6522 7.10802 78.0636 8.23302 78.0636 9.67804V18.593H76.0116V9.88304C76.0116 7.92303 75.0031 6.94803 72.9864 6.94803C72.0283 6.94803 71.1853 7.30803 70.4477 8.02302C69.7155 8.73804 69.3441 9.77803 69.3441 11.138V18.593H67.2922V5.41302H69.2387V7.37802C70.2472 5.86303 71.6319 5.10303 73.3927 5.10303L73.4028 5.10803Z" fill="#261B1A"/>
+<path d="M91.0057 12.0045V12.7195H80.9616C81.062 14.1495 81.4635 15.2245 82.1658 15.9495C82.8681 16.6745 83.8214 17.0345 85.0355 17.0345C86.8616 17.0345 88.0356 16.2145 88.5474 14.5845H90.6744C90.3132 15.9145 89.6509 16.9645 88.6777 17.7395C87.7044 18.5145 86.4753 18.8995 84.9853 18.8995C83.1591 18.8995 81.6792 18.2795 80.5503 17.0345C79.4064 15.7895 78.8346 14.1145 78.8346 12.0045C78.8346 9.8945 79.3965 8.25949 80.5252 6.99949C81.634 5.73949 83.1039 5.1095 84.9351 5.1095C86.7663 5.1095 88.3165 5.76449 89.3952 7.0745C90.4739 8.38449 91.0107 10.0295 91.0107 12.0045H91.0057ZM84.93 6.97449C83.8515 6.97449 82.9736 7.3095 82.2913 7.9845C81.609 8.6595 81.1824 9.6245 81.0118 10.8845H88.8031C88.7028 9.72449 88.3066 8.78449 87.6243 8.06448C86.942 7.3395 86.0439 6.97948 84.9351 6.97948L84.93 6.97449Z" fill="#261B1A"/>
+</svg></span>
+    <div class="pied__actions"><a href="mailto:contact@odune.fr">Nous contacter</a><a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Démarrer un projet</a></div>
+  </div>
+  <div class="pied__reseaux">
+    <a href="https://www.instagram.com/odune.fr/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/company/odune/" target="_blank" rel="noopener">Linkedin</a><a href="https://www.tiktok.com/@odune.fr" target="_blank" rel="noopener">Tiktok</a><a href="https://wa.me/33743664075" target="_blank" rel="noopener">Whatsapp</a><a href="#mentions">Mentions légales</a>
+  </div>
+</footer>
+</div>
+
+<div class="route" id="r-services">
+
+<section class="ecran s-accroche">
+  <div class="s-accroche__bloc">
+    <a class="bouton" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Réserver un appel-diagnostic</a>
+    <div class="s-accroche__texte">
+      <h1 class="s-accroche__titre">Deux façons de travailler avec nous.</h1>
+      <p class="s-accroche__sous">Un projet, quand il faut créer une marque ou la refondre. Un abonnement, quand elle existe et qu'il faut la faire vivre chaque mois.</p>
+    </div>
+  </div>
+</section>
+
+<section class="duo duo--projet" id="bloc-projet">
+  <aside class="fixe fixe--services">
+    <div class="fixe__lab sans"><button class="onglet onglet--projet sans" data-mode="projet">Par projet</button><button class="onglet onglet--abo sans" data-mode="abo">Par abonnements</button></div>
+    <div class="fixe__texte">
+      <p class="fixe__corps only-desk mode-projet">Création à partir de zéro, ou refonte quand l'image a pris du retard sur l'entreprise. Nous restons jusqu'au déploiement. Chaque devis existe en deux niveaux. Essentielle couvre le nécessaire. Complète ajoute le confortable.</p>
+      <p class="fixe__corps only-desk mode-abo">Nous gérons votre communication et vos campagnes publicitaires, avec la même personne, tous les mois. Vous validez en une lecture. Nous mesurons ce qui a produit une demande, et nous ajustons le mois suivant.</p>
+      <p class="fixe__corps only-mob mode-projet">Création à partir de zéro, ou refonte quand l'image a pris du retard sur l'entreprise. Nous restons jusqu'au déploiement. Découvrez tout nos services.</p>
+      <p class="fixe__corps only-mob mode-abo">Nous gérons votre communication et vos campagnes publicitaires, avec la même personne, tous les mois. Découvrez tout nos services.</p>
+      <p class="fixe__note only-desk mode-projet">À partir de 3 000 € HT</p>
+      <p class="fixe__note only-desk mode-abo">À partir de 2 000 € HT</p>
+      <div class="fixe__prix only-mob mode-abo"><span>À partir de 2 000 € HT</span><svg viewBox="0 0 17 9" fill="none" aria-hidden="true"><path d="M0.5 0.5L8.5 8L16.5 0.5" stroke="#9B9696" stroke-linecap="round"/></svg></div>
+      <div class="fixe__prix only-mob mode-projet"><span>À partir de 3 000 € HT</span><svg viewBox="0 0 17 9" fill="none" aria-hidden="true"><path d="M0.5 0.5L8.5 8L16.5 0.5" stroke="#9B9696" stroke-linecap="round"/></svg></div>
+    </div>
+  </aside>
+  <div class="defile defile--services mode-projet">
+    <div class="groupe">
+  <p class="groupe__titre">Stratégie</p>
+  <div class="groupe__img"></div>
+  <div class="groupe__contenu">
+    <p class="groupe__desc">Une lecture claire de votre marché, de votre client et de la place que vous pouvez tenir.</p>
+    <ul class="liste"><li>Analyse du marché et de la concurrence</li><li>Cibles et ses biais cognitifs</li><li>Positionnement</li><li>Naming et socle verbal</li><li>Storytelling de marque</li><li>Architecture d'offre et de gamme</li><li>Parcours client et points de contact</li><li>Feuille de route marketing</li><li>Architecture web et parcours de conversion</li></ul>
+  </div>
+</div>
+    <div class="groupe">
+  <p class="groupe__titre groupe__titre--haut">Image<br>de marque</p>
+  <div class="groupe__img"></div>
+  <div class="groupe__contenu">
+    <p class="groupe__desc">Une identité que votre client lit correctement au premier regard, avec les garde-fous qui l'empêchent de dériver.</p>
+    <ul class="liste"><li>Direction artistique et moodboards</li><li>Logo et déclinaisons</li><li>Système visuel, couleur et typographie</li><li>Charte graphique et brand book</li><li>Direction photographique et vidéo</li><li>Carte, menu, signalétique et devanture</li><li>Packaging et étiquettes</li><li>Gabarits réseaux sociaux et présentation</li><li>Suivi architecte et espace</li><li>Fichiers sources et kit Figma</li></ul>
+  </div>
+</div>
+    <div class="groupe">
+  <p class="groupe__titre groupe__titre--haut">Communication</p>
+  <div class="groupe__img"></div>
+  <div class="groupe__contenu">
+    <p class="groupe__desc">Tout ce qu'il faut pour prendre la parole dès le lendemain de la livraison, sans rupture avec l'identité.</p>
+    <ul class="liste"><li>Gabarits Réels, posts et stories</li><li>Bannières et photo de profil</li><li>Signature email</li><li>Carte de visite &amp; carte de fidélité</li><li>Affiche et flyer</li><li>Présentation commerciale</li><li>Magazine, brochure et catalogue</li><li>Mise en page éditoriale</li></ul>
+  </div>
+</div>
+  </div>
+  <div class="defile defile--services defile--abo mode-abo">
+    <div class="groupe">
+  <p class="groupe__titre groupe__titre--haut">Communication</p>
+  <div class="groupe__img"></div>
+  <div class="groupe__contenu">
+    <p class="groupe__desc">Vos contenus produits, validés et publiés chaque mois, dans votre ton.</p>
+    <ul class="liste"><li>Cadrage éditorial et piliers</li><li>Scripts</li><li>Storyboard et direction créative</li><li>Réels</li><li>Posts et carrousels</li><li>Stories</li><li>Validation et planification</li><li>Publication</li></ul>
+  </div>
+</div>
+    <div class="groupe">
+  <p class="groupe__titre groupe__titre--haut">Publicité</p>
+  <div class="groupe__img"></div>
+  <div class="groupe__contenu">
+    <p class="groupe__desc">Vos campagnes construites, pilotées et mesurées, avec un bilan lisible en fin de mois.</p>
+    <ul class="liste"><li>Campagnes Meta, Google, Pinterest, LinkedIn, mise en place et pilotage</li><li>Accroches et angles publicitaires</li><li>Visuels et vidéos aux formats natifs</li><li>Mesure de chaque inscription à sa source</li><li>Ajustement des annonces chaque semaine</li><li>Arbitrage des budgets entre campagnes</li><li>Bilan mensuel et recommandations</li></ul>
+  </div>
+</div>
+  </div>
+</section>
+
+<section class="ecran s-sans">
+  <div class="s-sans__bloc">
+    <p class="s-sans__titre">Sans identité claire, pas d'abonnement.</p>
+    <p class="s-sans__corps">Diffuser une image floue coûte le même prix que diffuser une image juste. Si votre marque n'est pas posée, nous commençons par un projet. L'abonnement prend le relais ensuite.</p>
+  </div>
+</section>
+
+<section class="ecran s-appel">
+  <div class="s-appel__bloc">
+    <div class="s-appel__texte">
+      <p class="s-appel__titre">Un appel, une recommandation écrite, un devis sous 48 heures.</p>
+      <p class="s-appel__sous">Pour démarrer en octobre, réservez l'appel avant le 20 septembre.</p>
+    </div>
+    <a class="bouton" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Réserver un appel-diagnostic</a>
+  </div>
+</section>
+
+<footer class="pied">
+  <div class="pied__marque">
+    <span class="pied__logo"><svg viewBox="0 0 92 19" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Odune">
+<path d="M9.48199 1.435C5.04703 1.435 1.43986 5.02999 1.43986 9.45C1.43986 13.87 5.04703 17.465 9.48199 17.465C13.917 17.465 17.5241 13.87 17.5241 9.45C17.5241 5.02999 13.917 1.435 9.48199 1.435ZM9.48199 18.9C4.25434 18.9 0 14.66 0 9.45C0 4.24001 4.25434 0 9.48199 0C14.7096 0 18.964 4.24001 18.964 9.45C18.964 14.66 14.7096 18.9 9.48199 18.9Z" fill="#261B1A"/>
+<path d="M9.4813 6.25909C6.38085 6.25909 3.85732 8.7741 3.85732 11.8641C3.85732 14.9541 6.38085 17.4691 9.4813 17.4691C12.5817 17.4691 15.1053 14.9541 15.1053 11.8641C15.1053 8.7741 12.5817 6.25909 9.4813 6.25909ZM9.4813 18.8991C5.58816 18.8991 2.41748 15.7441 2.41748 11.8591C2.41748 7.9741 5.58314 4.81909 9.4813 4.81909C13.3795 4.81909 16.5451 7.9741 16.5451 11.8591C16.5451 15.7441 13.3795 18.8991 9.4813 18.8991Z" fill="#261B1A"/>
+<path d="M9.48236 11.0777C7.71641 11.0777 6.27654 12.5127 6.27654 14.2727C6.27654 16.0327 7.71641 17.4677 9.48236 17.4677C11.2483 17.4677 12.6882 16.0327 12.6882 14.2727C12.6882 12.5127 11.2483 11.0777 9.48236 11.0777ZM9.48236 18.8977C6.92372 18.8977 4.84172 16.8227 4.84172 14.2727C4.84172 11.7227 6.92372 9.64772 9.48236 9.64772C12.041 9.64772 14.123 11.7227 14.123 14.2727C14.123 16.8227 12.041 18.8977 9.48236 18.8977Z" fill="#261B1A"/>
+<path d="M37.8966 16.37C36.2912 18.125 34.1741 19 31.5404 19C28.9064 19 26.7992 18.125 25.209 16.37C23.6036 14.65 22.8009 12.36 22.8009 9.50001C22.8009 6.64 23.6036 4.36001 25.209 2.60501C26.8043 0.87 28.9115 0 31.5452 0C34.1791 0 36.2963 0.87 37.9017 2.60501C39.4921 4.375 40.2847 6.67502 40.2847 9.50001C40.2847 12.325 39.4921 14.635 37.9017 16.37H37.8966ZM26.8293 14.995C28.0084 16.355 29.5786 17.04 31.5452 17.04C33.512 17.04 35.0822 16.36 36.2613 14.995C37.4401 13.65 38.0271 11.82 38.0271 9.50501C38.0271 7.19 37.4351 5.36001 36.2613 4.01501C35.0822 2.65501 33.512 1.97 31.5452 1.97C29.5786 1.97 28.0084 2.64999 26.8293 4.01501C25.6503 5.36001 25.0635 7.19 25.0635 9.50501C25.0635 11.82 25.6503 13.65 26.8293 14.995Z" fill="#261B1A"/>
+<path d="M51.4149 7.30467V0.409675H53.4668V18.5947H51.5203V16.5497C50.4616 18.1147 48.9467 18.8997 46.9849 18.8997C45.1238 18.8997 43.6337 18.2697 42.5248 17.0097C41.3962 15.7497 40.8342 14.0797 40.8342 12.0047C40.8342 9.92969 41.3962 8.21467 42.5248 6.97468C43.6185 5.72969 45.1035 5.10967 46.9849 5.10967C48.8663 5.10967 50.3564 5.83967 51.4199 7.30467H51.4149ZM44.1404 15.7597C44.9081 16.6297 45.9414 17.0597 47.2409 17.0597C48.5401 17.0597 49.5737 16.6097 50.3412 15.7047C51.1089 14.8197 51.4952 13.5847 51.4952 11.9997C51.4952 10.4147 51.1089 9.19968 50.3412 8.29468C49.5737 7.38968 48.5401 6.93968 47.2409 6.93968C45.9414 6.93968 44.9281 7.40469 44.1553 8.32967C43.3777 9.25968 42.9914 10.5147 42.9914 12.0947C42.9914 13.6747 43.3777 14.8797 44.1454 15.7447L44.1404 15.7597Z" fill="#261B1A"/>
+<path d="M63.7136 12.8727V5.41775H65.7656V18.5978H63.8191V16.6327C62.8106 18.1478 61.4259 18.9078 59.67 18.9078C58.2002 18.9078 57.0561 18.5078 56.2333 17.7078C55.4157 16.9078 55.0043 15.7827 55.0043 14.3378V5.41275H57.0561V14.1228C57.0561 16.0827 58.0646 17.0578 60.0813 17.0578C61.0397 17.0578 61.8824 16.6977 62.62 15.9828C63.3525 15.2678 63.7238 14.2277 63.7238 12.8678L63.7136 12.8727Z" fill="#261B1A"/>
+<path d="M73.4028 5.10803C74.8728 5.10803 76.0167 5.50801 76.8343 6.30803C77.6522 7.10802 78.0636 8.23302 78.0636 9.67804V18.593H76.0116V9.88304C76.0116 7.92303 75.0031 6.94803 72.9864 6.94803C72.0283 6.94803 71.1853 7.30803 70.4477 8.02302C69.7155 8.73804 69.3441 9.77803 69.3441 11.138V18.593H67.2922V5.41302H69.2387V7.37802C70.2472 5.86303 71.6319 5.10303 73.3927 5.10303L73.4028 5.10803Z" fill="#261B1A"/>
+<path d="M91.0057 12.0045V12.7195H80.9616C81.062 14.1495 81.4635 15.2245 82.1658 15.9495C82.8681 16.6745 83.8214 17.0345 85.0355 17.0345C86.8616 17.0345 88.0356 16.2145 88.5474 14.5845H90.6744C90.3132 15.9145 89.6509 16.9645 88.6777 17.7395C87.7044 18.5145 86.4753 18.8995 84.9853 18.8995C83.1591 18.8995 81.6792 18.2795 80.5503 17.0345C79.4064 15.7895 78.8346 14.1145 78.8346 12.0045C78.8346 9.8945 79.3965 8.25949 80.5252 6.99949C81.634 5.73949 83.1039 5.1095 84.9351 5.1095C86.7663 5.1095 88.3165 5.76449 89.3952 7.0745C90.4739 8.38449 91.0107 10.0295 91.0107 12.0045H91.0057ZM84.93 6.97449C83.8515 6.97449 82.9736 7.3095 82.2913 7.9845C81.609 8.6595 81.1824 9.6245 81.0118 10.8845H88.8031C88.7028 9.72449 88.3066 8.78449 87.6243 8.06448C86.942 7.3395 86.0439 6.97948 84.9351 6.97948L84.93 6.97449Z" fill="#261B1A"/>
+</svg></span>
+    <div class="pied__actions"><a href="mailto:contact@odune.fr">Nous contacter</a><a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Démarrer un projet</a></div>
+  </div>
+  <div class="pied__reseaux">
+    <a href="https://www.instagram.com/odune.fr/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/company/odune/" target="_blank" rel="noopener">Linkedin</a><a href="https://www.tiktok.com/@odune.fr" target="_blank" rel="noopener">Tiktok</a><a href="https://wa.me/33743664075" target="_blank" rel="noopener">Whatsapp</a><a href="#mentions">Mentions légales</a>
+  </div>
+</footer>
+</div>
+
+<div class="route" id="r-projets">
+
+<div class="page" id="p-projets" data-actif style="padding-bottom:80px">
+<section class="duo">
+  <aside class="fixe fixe--projets" id="fixe-projets">
+    <div class="fixe__lab sans"><span id="pj-nom">Clemenceau</span><span id="pj-cat">[Secteur]</span></div>
+    <div class="fixe__texte">
+      <p class="fixe__corps" id="pj-texte">[À écrire — deux ou trois phrases sur Clemenceau.]</p>
+      <p class="fixe__note" id="pj-service">[Service principal]</p>
+    </div>
+  </aside>
+  <div class="defile grille">
+    <div class="grille__col grille__col--a">
+      <a class="tuile vis" href="#projet/clemenceau" data-i="0" style="aspect-ratio:434.5/522"><img class="vis__img" src="img/t0.webp" alt="Clemenceau"></a>
+      <a class="tuile vis" href="#projet/atelier-2m" data-i="2" style="aspect-ratio:434.5/576"><img class="vis__img" src="img/t2.webp" alt="Atelier 2m"></a>
+      <a class="tuile vis" href="#projet/campero" data-i="4" style="aspect-ratio:434.5/308.17"><img class="vis__img" src="img/t4.webp" alt="Campero"></a>
+    </div>
+    <div class="grille__col grille__col--b">
+      <a class="tuile vis" href="#projet/oupi" data-i="1" style="aspect-ratio:434.5/360"><img class="vis__img" src="img/t1.webp" alt="Oupi"></a>
+      <a class="tuile vis" href="#projet/polyphonie" data-i="3" style="aspect-ratio:434.5/391"><img class="vis__img" src="img/t3.webp" alt="Polyphonie"></a>
+      <a class="tuile vis" href="#projet/tolem" data-i="5" style="aspect-ratio:434.5/655"><img class="vis__img" src="img/t5.webp" alt="Tolem"></a>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="page" id="p-projet" style="padding-bottom:80px">
+<section class="duo">
+  <aside class="fixe fixe--projet">
+    <div>
+      <div class="fixe__lab sans"><span id="pp-nom">Tolem</span><a class="fixe__retour" href="#projets" data-va="projets">Tous les projets</a></div>
+    </div>
+    <div class="fixe__texte">
+      <div class="fixe__services" id="pp-services"></div>
+      <p class="fixe__corps" id="pp-enjeux"></p>
+    </div>
+  </aside>
+  <div class="defile mosaique">
+    <div class="vis" style="height:313px"><img class="vis__img" src="img/m1.webp" alt=""><span>Visuel principal</span></div>
+    <div class="mosaique__rang">
+      <div class="vis" style="height:258px"><img class="vis__img" src="img/m2.webp" alt=""><span>Visuel</span></div>
+      <div class="vis" style="height:258px"><img class="vis__img" src="img/m3.webp" alt=""><span>Visuel</span></div>
+    </div>
+    <div class="mosaique__rang">
+      <div class="vis" style="height:475px;width:502px;flex:none"><img class="vis__img" src="img/m4.webp" alt=""><span>Visuel</span></div>
+      <div class="vis" style="height:475px"><img class="vis__img" src="img/m6.webp" alt=""><span>Visuel</span></div>
+    </div>
+  </div>
+  <div class="defile mosaique-mob">
+    <div class="vis" style="aspect-ratio:315/292"><img class="vis__img" src="img/m1.webp" alt=""><span>Visuel principal</span></div>
+    <p class="bandeau" id="pp-bandeau"></p>
+    <div class="mosaique-mob__rang">
+      <div class="vis" style="aspect-ratio:154.5/223.92"><img class="vis__img" src="img/m2.webp" alt=""><span>Visuel</span></div>
+      <div class="vis" style="aspect-ratio:154.5/223.92"><img class="vis__img" src="img/m3.webp" alt=""><span>Visuel</span></div>
+    </div>
+    <div class="vis" style="aspect-ratio:315/220"><img class="vis__img" src="img/m4.webp" alt=""><span>Visuel</span></div>
+    <div class="mosaique-mob__rang">
+      <div class="vis" style="aspect-ratio:154.5/220"><img class="vis__img" src="img/m5.webp" alt=""><span>Visuel</span></div>
+      <div class="vis" style="aspect-ratio:154.5/220"><img class="vis__img" src="img/m6.webp" alt=""><span>Visuel</span></div>
+    </div>
+  </div>
+  <div class="defile mosaique-proj" id="mosaique-proj"></div>
+</section>
+</div>
+
+<div class="visionneuse" id="visionneuse" role="dialog" aria-modal="true" aria-label="Visuel en plein écran">
+  <button class="visionneuse__fermer" aria-label="Fermer">
+    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 2L14 14M14 2L2 14" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </button>
+  <img alt="">
+</div>
+
+<footer class="pied">
+  <div class="pied__marque">
+    <span class="pied__logo"><svg viewBox="0 0 92 19" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Odune">
+<path d="M9.48199 1.435C5.04703 1.435 1.43986 5.02999 1.43986 9.45C1.43986 13.87 5.04703 17.465 9.48199 17.465C13.917 17.465 17.5241 13.87 17.5241 9.45C17.5241 5.02999 13.917 1.435 9.48199 1.435ZM9.48199 18.9C4.25434 18.9 0 14.66 0 9.45C0 4.24001 4.25434 0 9.48199 0C14.7096 0 18.964 4.24001 18.964 9.45C18.964 14.66 14.7096 18.9 9.48199 18.9Z" fill="#261B1A"/>
+<path d="M9.4813 6.25909C6.38085 6.25909 3.85732 8.7741 3.85732 11.8641C3.85732 14.9541 6.38085 17.4691 9.4813 17.4691C12.5817 17.4691 15.1053 14.9541 15.1053 11.8641C15.1053 8.7741 12.5817 6.25909 9.4813 6.25909ZM9.4813 18.8991C5.58816 18.8991 2.41748 15.7441 2.41748 11.8591C2.41748 7.9741 5.58314 4.81909 9.4813 4.81909C13.3795 4.81909 16.5451 7.9741 16.5451 11.8591C16.5451 15.7441 13.3795 18.8991 9.4813 18.8991Z" fill="#261B1A"/>
+<path d="M9.48236 11.0777C7.71641 11.0777 6.27654 12.5127 6.27654 14.2727C6.27654 16.0327 7.71641 17.4677 9.48236 17.4677C11.2483 17.4677 12.6882 16.0327 12.6882 14.2727C12.6882 12.5127 11.2483 11.0777 9.48236 11.0777ZM9.48236 18.8977C6.92372 18.8977 4.84172 16.8227 4.84172 14.2727C4.84172 11.7227 6.92372 9.64772 9.48236 9.64772C12.041 9.64772 14.123 11.7227 14.123 14.2727C14.123 16.8227 12.041 18.8977 9.48236 18.8977Z" fill="#261B1A"/>
+<path d="M37.8966 16.37C36.2912 18.125 34.1741 19 31.5404 19C28.9064 19 26.7992 18.125 25.209 16.37C23.6036 14.65 22.8009 12.36 22.8009 9.50001C22.8009 6.64 23.6036 4.36001 25.209 2.60501C26.8043 0.87 28.9115 0 31.5452 0C34.1791 0 36.2963 0.87 37.9017 2.60501C39.4921 4.375 40.2847 6.67502 40.2847 9.50001C40.2847 12.325 39.4921 14.635 37.9017 16.37H37.8966ZM26.8293 14.995C28.0084 16.355 29.5786 17.04 31.5452 17.04C33.512 17.04 35.0822 16.36 36.2613 14.995C37.4401 13.65 38.0271 11.82 38.0271 9.50501C38.0271 7.19 37.4351 5.36001 36.2613 4.01501C35.0822 2.65501 33.512 1.97 31.5452 1.97C29.5786 1.97 28.0084 2.64999 26.8293 4.01501C25.6503 5.36001 25.0635 7.19 25.0635 9.50501C25.0635 11.82 25.6503 13.65 26.8293 14.995Z" fill="#261B1A"/>
+<path d="M51.4149 7.30467V0.409675H53.4668V18.5947H51.5203V16.5497C50.4616 18.1147 48.9467 18.8997 46.9849 18.8997C45.1238 18.8997 43.6337 18.2697 42.5248 17.0097C41.3962 15.7497 40.8342 14.0797 40.8342 12.0047C40.8342 9.92969 41.3962 8.21467 42.5248 6.97468C43.6185 5.72969 45.1035 5.10967 46.9849 5.10967C48.8663 5.10967 50.3564 5.83967 51.4199 7.30467H51.4149ZM44.1404 15.7597C44.9081 16.6297 45.9414 17.0597 47.2409 17.0597C48.5401 17.0597 49.5737 16.6097 50.3412 15.7047C51.1089 14.8197 51.4952 13.5847 51.4952 11.9997C51.4952 10.4147 51.1089 9.19968 50.3412 8.29468C49.5737 7.38968 48.5401 6.93968 47.2409 6.93968C45.9414 6.93968 44.9281 7.40469 44.1553 8.32967C43.3777 9.25968 42.9914 10.5147 42.9914 12.0947C42.9914 13.6747 43.3777 14.8797 44.1454 15.7447L44.1404 15.7597Z" fill="#261B1A"/>
+<path d="M63.7136 12.8727V5.41775H65.7656V18.5978H63.8191V16.6327C62.8106 18.1478 61.4259 18.9078 59.67 18.9078C58.2002 18.9078 57.0561 18.5078 56.2333 17.7078C55.4157 16.9078 55.0043 15.7827 55.0043 14.3378V5.41275H57.0561V14.1228C57.0561 16.0827 58.0646 17.0578 60.0813 17.0578C61.0397 17.0578 61.8824 16.6977 62.62 15.9828C63.3525 15.2678 63.7238 14.2277 63.7238 12.8678L63.7136 12.8727Z" fill="#261B1A"/>
+<path d="M73.4028 5.10803C74.8728 5.10803 76.0167 5.50801 76.8343 6.30803C77.6522 7.10802 78.0636 8.23302 78.0636 9.67804V18.593H76.0116V9.88304C76.0116 7.92303 75.0031 6.94803 72.9864 6.94803C72.0283 6.94803 71.1853 7.30803 70.4477 8.02302C69.7155 8.73804 69.3441 9.77803 69.3441 11.138V18.593H67.2922V5.41302H69.2387V7.37802C70.2472 5.86303 71.6319 5.10303 73.3927 5.10303L73.4028 5.10803Z" fill="#261B1A"/>
+<path d="M91.0057 12.0045V12.7195H80.9616C81.062 14.1495 81.4635 15.2245 82.1658 15.9495C82.8681 16.6745 83.8214 17.0345 85.0355 17.0345C86.8616 17.0345 88.0356 16.2145 88.5474 14.5845H90.6744C90.3132 15.9145 89.6509 16.9645 88.6777 17.7395C87.7044 18.5145 86.4753 18.8995 84.9853 18.8995C83.1591 18.8995 81.6792 18.2795 80.5503 17.0345C79.4064 15.7895 78.8346 14.1145 78.8346 12.0045C78.8346 9.8945 79.3965 8.25949 80.5252 6.99949C81.634 5.73949 83.1039 5.1095 84.9351 5.1095C86.7663 5.1095 88.3165 5.76449 89.3952 7.0745C90.4739 8.38449 91.0107 10.0295 91.0107 12.0045H91.0057ZM84.93 6.97449C83.8515 6.97449 82.9736 7.3095 82.2913 7.9845C81.609 8.6595 81.1824 9.6245 81.0118 10.8845H88.8031C88.7028 9.72449 88.3066 8.78449 87.6243 8.06448C86.942 7.3395 86.0439 6.97948 84.9351 6.97948L84.93 6.97449Z" fill="#261B1A"/>
+</svg></span>
+    <div class="pied__actions"><a href="mailto:contact@odune.fr">Nous contacter</a><a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Démarrer un projet</a></div>
+  </div>
+  <div class="pied__reseaux">
+    <a href="https://www.instagram.com/odune.fr/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/company/odune/" target="_blank" rel="noopener">Linkedin</a><a href="https://www.tiktok.com/@odune.fr" target="_blank" rel="noopener">Tiktok</a><a href="https://wa.me/33743664075" target="_blank" rel="noopener">Whatsapp</a><a href="#mentions">Mentions légales</a>
+  </div>
+</footer>
+</div>
+
+<div class="route" id="r-agence">
+
+<section class="a-accroche">
+  <div class="a-accroche__gauche">
+    <div class="a-accroche__texte">
+      <h1 class="a-accroche__titre">Une agence digitale, à Paris, qui aussi travaille loin de Paris.</h1>
+      <p class="a-accroche__sous">Fondée et dirigée par Ilona Langlois. Projets en France et à l'international.</p>
+    </div>
+  </div>
+  <div class="a-accroche__droite">
+    <div class="vis"><img class="vis__img" src="img/agence-1.webp" alt=""><span>Visuel</span></div>
+    <div class="vis"><img class="vis__img" src="img/agence-2.webp" alt=""><span>Visuel</span></div>
+  </div>
+</section>
+
+<section class="a-lignes">
+  <div class="a-ligne">
+    <p class="a-ligne__titre">Un seul interlocuteur,<br>du premier appel à la livraison.</p>
+    <p class="a-ligne__texte">Ilona pilote chaque projet. Vous parlez à la personne qui pense la stratégie et qui valide chaque livrable. Rien ne se perd entre les deux.</p>
+  </div>
+  <div class="a-ligne">
+    <p class="a-ligne__titre">Le suivi passe par<br>WhatsApp Business.</p>
+    <p class="a-ligne__texte">Une question, une réponse dans la journée. Les validations, les envois et les arbitrages restent dans un seul fil, lisible par vous à tout moment. Le mail sert aux documents.</p>
+  </div>
+</section>
+
+<section class="ecran a-pourquoi">
+  <div class="a-pourquoi__bloc">
+    <p class="a-pourquoi__titre">Pourquoi Odune</p>
+    <div class="a-pourquoi__corps">
+      <p>J'ai ouvert Odune parce que je voyais des marques bien dessinées et mal comprises. Le logo était propre, le site était beau, et le client ne saisissait toujours pas pourquoi il devait payer ce prix. Le design ne créait pas la perception, il la décorait.</p>
+      <p>Odune part de l'autre bout. D'abord ce que votre client voit, retient et déduit sans y penser. Ensuite seulement ce qu'on dessine. Une identité construite comme ça n'a pas besoin d'être refaite dans dix-huit mois.</p>
+      <p>&nbsp;</p>
+      <p>Ilona</p>
+    </div>
+  </div>
+</section>
+
+<div class="a-valeurs__tete"><span>Ce qui ne change pas</span><a href="#">Nos valeurs</a></div>
+<section class="a-valeurs">
+  <div class="a-carte">
+    <div class="a-carte__img"><img class="vis__img" src="img/portrait.webp" alt=""><span>Visuel</span></div>
+    <div class="a-carte__texte"><p class="a-carte__titre">Comprendre avant de créer.</p><p class="a-carte__desc">Aucun choix graphique sans une raison qui tient à la perception du client.</p></div>
+  </div>
+  <div class="a-carte">
+    <div class="a-carte__img"><img class="vis__img" src="img/portrait.webp" alt=""><span>Visuel</span></div>
+    <div class="a-carte__texte"><p class="a-carte__titre">Rendre autonome.</p><p class="a-carte__desc">Vous recevez les sources.<br>Vous pouvez continuer sans nous.</p></div>
+  </div>
+  <div class="a-carte">
+    <div class="a-carte__img"><img class="vis__img" src="img/portrait.webp" alt=""><span>Visuel</span></div>
+    <div class="a-carte__texte"><p class="a-carte__titre">[Troisième valeur — à écrire]</p><p class="a-carte__desc">[Dans ton fichier, la troisième carte répète la première.]</p></div>
+  </div>
+</section>
+
+<footer class="pied">
+  <div class="pied__marque">
+    <span class="pied__logo"><svg viewBox="0 0 92 19" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Odune">
+<path d="M9.48199 1.435C5.04703 1.435 1.43986 5.02999 1.43986 9.45C1.43986 13.87 5.04703 17.465 9.48199 17.465C13.917 17.465 17.5241 13.87 17.5241 9.45C17.5241 5.02999 13.917 1.435 9.48199 1.435ZM9.48199 18.9C4.25434 18.9 0 14.66 0 9.45C0 4.24001 4.25434 0 9.48199 0C14.7096 0 18.964 4.24001 18.964 9.45C18.964 14.66 14.7096 18.9 9.48199 18.9Z" fill="#261B1A"/>
+<path d="M9.4813 6.25909C6.38085 6.25909 3.85732 8.7741 3.85732 11.8641C3.85732 14.9541 6.38085 17.4691 9.4813 17.4691C12.5817 17.4691 15.1053 14.9541 15.1053 11.8641C15.1053 8.7741 12.5817 6.25909 9.4813 6.25909ZM9.4813 18.8991C5.58816 18.8991 2.41748 15.7441 2.41748 11.8591C2.41748 7.9741 5.58314 4.81909 9.4813 4.81909C13.3795 4.81909 16.5451 7.9741 16.5451 11.8591C16.5451 15.7441 13.3795 18.8991 9.4813 18.8991Z" fill="#261B1A"/>
+<path d="M9.48236 11.0777C7.71641 11.0777 6.27654 12.5127 6.27654 14.2727C6.27654 16.0327 7.71641 17.4677 9.48236 17.4677C11.2483 17.4677 12.6882 16.0327 12.6882 14.2727C12.6882 12.5127 11.2483 11.0777 9.48236 11.0777ZM9.48236 18.8977C6.92372 18.8977 4.84172 16.8227 4.84172 14.2727C4.84172 11.7227 6.92372 9.64772 9.48236 9.64772C12.041 9.64772 14.123 11.7227 14.123 14.2727C14.123 16.8227 12.041 18.8977 9.48236 18.8977Z" fill="#261B1A"/>
+<path d="M37.8966 16.37C36.2912 18.125 34.1741 19 31.5404 19C28.9064 19 26.7992 18.125 25.209 16.37C23.6036 14.65 22.8009 12.36 22.8009 9.50001C22.8009 6.64 23.6036 4.36001 25.209 2.60501C26.8043 0.87 28.9115 0 31.5452 0C34.1791 0 36.2963 0.87 37.9017 2.60501C39.4921 4.375 40.2847 6.67502 40.2847 9.50001C40.2847 12.325 39.4921 14.635 37.9017 16.37H37.8966ZM26.8293 14.995C28.0084 16.355 29.5786 17.04 31.5452 17.04C33.512 17.04 35.0822 16.36 36.2613 14.995C37.4401 13.65 38.0271 11.82 38.0271 9.50501C38.0271 7.19 37.4351 5.36001 36.2613 4.01501C35.0822 2.65501 33.512 1.97 31.5452 1.97C29.5786 1.97 28.0084 2.64999 26.8293 4.01501C25.6503 5.36001 25.0635 7.19 25.0635 9.50501C25.0635 11.82 25.6503 13.65 26.8293 14.995Z" fill="#261B1A"/>
+<path d="M51.4149 7.30467V0.409675H53.4668V18.5947H51.5203V16.5497C50.4616 18.1147 48.9467 18.8997 46.9849 18.8997C45.1238 18.8997 43.6337 18.2697 42.5248 17.0097C41.3962 15.7497 40.8342 14.0797 40.8342 12.0047C40.8342 9.92969 41.3962 8.21467 42.5248 6.97468C43.6185 5.72969 45.1035 5.10967 46.9849 5.10967C48.8663 5.10967 50.3564 5.83967 51.4199 7.30467H51.4149ZM44.1404 15.7597C44.9081 16.6297 45.9414 17.0597 47.2409 17.0597C48.5401 17.0597 49.5737 16.6097 50.3412 15.7047C51.1089 14.8197 51.4952 13.5847 51.4952 11.9997C51.4952 10.4147 51.1089 9.19968 50.3412 8.29468C49.5737 7.38968 48.5401 6.93968 47.2409 6.93968C45.9414 6.93968 44.9281 7.40469 44.1553 8.32967C43.3777 9.25968 42.9914 10.5147 42.9914 12.0947C42.9914 13.6747 43.3777 14.8797 44.1454 15.7447L44.1404 15.7597Z" fill="#261B1A"/>
+<path d="M63.7136 12.8727V5.41775H65.7656V18.5978H63.8191V16.6327C62.8106 18.1478 61.4259 18.9078 59.67 18.9078C58.2002 18.9078 57.0561 18.5078 56.2333 17.7078C55.4157 16.9078 55.0043 15.7827 55.0043 14.3378V5.41275H57.0561V14.1228C57.0561 16.0827 58.0646 17.0578 60.0813 17.0578C61.0397 17.0578 61.8824 16.6977 62.62 15.9828C63.3525 15.2678 63.7238 14.2277 63.7238 12.8678L63.7136 12.8727Z" fill="#261B1A"/>
+<path d="M73.4028 5.10803C74.8728 5.10803 76.0167 5.50801 76.8343 6.30803C77.6522 7.10802 78.0636 8.23302 78.0636 9.67804V18.593H76.0116V9.88304C76.0116 7.92303 75.0031 6.94803 72.9864 6.94803C72.0283 6.94803 71.1853 7.30803 70.4477 8.02302C69.7155 8.73804 69.3441 9.77803 69.3441 11.138V18.593H67.2922V5.41302H69.2387V7.37802C70.2472 5.86303 71.6319 5.10303 73.3927 5.10303L73.4028 5.10803Z" fill="#261B1A"/>
+<path d="M91.0057 12.0045V12.7195H80.9616C81.062 14.1495 81.4635 15.2245 82.1658 15.9495C82.8681 16.6745 83.8214 17.0345 85.0355 17.0345C86.8616 17.0345 88.0356 16.2145 88.5474 14.5845H90.6744C90.3132 15.9145 89.6509 16.9645 88.6777 17.7395C87.7044 18.5145 86.4753 18.8995 84.9853 18.8995C83.1591 18.8995 81.6792 18.2795 80.5503 17.0345C79.4064 15.7895 78.8346 14.1145 78.8346 12.0045C78.8346 9.8945 79.3965 8.25949 80.5252 6.99949C81.634 5.73949 83.1039 5.1095 84.9351 5.1095C86.7663 5.1095 88.3165 5.76449 89.3952 7.0745C90.4739 8.38449 91.0107 10.0295 91.0107 12.0045H91.0057ZM84.93 6.97449C83.8515 6.97449 82.9736 7.3095 82.2913 7.9845C81.609 8.6595 81.1824 9.6245 81.0118 10.8845H88.8031C88.7028 9.72449 88.3066 8.78449 87.6243 8.06448C86.942 7.3395 86.0439 6.97948 84.9351 6.97948L84.93 6.97449Z" fill="#261B1A"/>
+</svg></span>
+    <div class="pied__actions"><a href="mailto:contact@odune.fr">Nous contacter</a><a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Démarrer un projet</a></div>
+  </div>
+  <div class="pied__reseaux">
+    <a href="https://www.instagram.com/odune.fr/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/company/odune/" target="_blank" rel="noopener">Linkedin</a><a href="https://www.tiktok.com/@odune.fr" target="_blank" rel="noopener">Tiktok</a><a href="https://wa.me/33743664075" target="_blank" rel="noopener">Whatsapp</a><a href="#mentions">Mentions légales</a>
+  </div>
+</footer>
+</div>
+
+<div class="route" id="r-mentions">
+<section class="mentions">
+  <h1>Mentions légales</h1>
+
+  <h2>Éditeur du site</h2>
+  <p>Le site odune.fr est édité par :<br>
+  Odune Société à responsabilité limitée à associé unique (EURL)<br>
+  Capital social : 1 000 €<br>
+  Siège social : 3 rue de Bazeilles, 75005 Paris<br>
+  RCS Paris : 103 798 781<br>
+  SIRET : 10379878100011<br>
+  Numéro d'identification européen : FR7501.103798781<br>
+  N° TVA intracommunautaire : FR68103798781</p>
+
+  <h2>Gérante et directrice de la publication</h2>
+  <p>Ilona Langlois</p>
+
+  <h2>Contact</h2>
+  <p><a href="mailto:contact@odune.fr">contact@odune.fr</a></p>
+
+  <h2>Hébergeur</h2>
+  <p>Le site est hébergé par :<br>
+  Hostinger International Ltd. 61 Lordou Vironos Street, 6023 Larnaca, Chypre.
+  Site web : <a href="https://www.hostinger.fr" target="_blank" rel="noopener">https://www.hostinger.fr</a></p>
+
+  <h2>Propriété intellectuelle</h2>
+  <p>L'ensemble des éléments du site odune.fr (textes, images, vidéos, logos, identité graphique, charte visuelle, code source) est la propriété exclusive d'Odune ou de ses partenaires, et est protégé par le droit d'auteur et le droit des marques.</p>
+  <p>Toute reproduction, représentation, modification, publication ou adaptation, totale ou partielle, des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite sans l'autorisation écrite préalable d'Odune.</p>
+  <p>Toute exploitation non autorisée du site ou de son contenu est susceptible d'engager la responsabilité civile et pénale de son auteur.</p>
+
+  <h2>Données personnelles</h2>
+  <p>Conformément au Règlement Général sur la Protection des Données (RGPD — Règlement UE 2016/679) et à la loi Informatique et Libertés du 6 janvier 1978 modifiée, Odune s'engage à protéger la vie privée des utilisateurs du site odune.fr.</p>
+  <p>Responsable du traitement : Odune, représentée par sa gérante Ilona Langlois.</p>
+  <p>Données collectées : les données collectées via les formulaires du site (nom, prénom, adresse email, message, et toute information communiquée volontairement par l'utilisateur) sont strictement nécessaires au traitement de la demande.</p>
+  <p>Finalités du traitement : répondre aux demandes de contact, établir des devis, gérer la relation client et, le cas échéant, envoyer des communications commerciales avec votre consentement.</p>
+  <p>Base légale : consentement de l'utilisateur et/ou exécution de mesures précontractuelles prises à votre demande.</p>
+  <p>Durée de conservation : les données sont conservées pendant la durée nécessaire au traitement de la demande, puis archivées pendant une durée maximale de 3 ans à compter du dernier contact, sauf obligation légale de conservation plus longue.</p>
+  <p>Destinataires : les données sont destinées exclusivement à Odune et ne sont ni vendues, ni cédées, ni transmises à des tiers, sauf prestataires techniques nécessaires au fonctionnement du site (hébergeur) et obligations légales.</p>
+  <p>Vos droits : vous disposez d'un droit d'accès, de rectification, d'effacement, de portabilité, de limitation et d'opposition au traitement de vos données. Vous pouvez exercer ces droits en écrivant à <a href="mailto:contact@odune.fr">contact@odune.fr</a>.
+  Vous disposez également du droit d'introduire une réclamation auprès de la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>).</p>
+
+  <h2>Cookies</h2>
+  <p>Le site odune.fr peut utiliser des cookies à des fins de mesure d'audience et d'amélioration de l'expérience utilisateur. Vous pouvez à tout moment paramétrer vos préférences en matière de cookies via le bandeau prévu à cet effet ou les paramètres de votre navigateur.</p>
+
+  <h2>Responsabilité</h2>
+  <p>Odune s'efforce d'assurer l'exactitude et la mise à jour des informations publiées sur le site, mais ne peut garantir l'exhaustivité ou l'absence d'erreurs. L'utilisateur reconnaît utiliser le site sous sa seule responsabilité.</p>
+  <p>Odune ne pourra être tenue responsable des dommages directs ou indirects résultant de l'utilisation du site ou de l'impossibilité d'y accéder.</p>
+
+  <h2>Droit applicable</h2>
+  <p>Les présentes mentions légales sont soumises au droit français. Tout litige relatif à leur interprétation ou exécution relève de la compétence exclusive des tribunaux de Paris.</p>
+</section>
+<footer class="pied">
+  <div class="pied__marque">
+    <span class="pied__logo"><svg viewBox="0 0 92 19" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Odune">
+<path d="M9.48199 1.435C5.04703 1.435 1.43986 5.02999 1.43986 9.45C1.43986 13.87 5.04703 17.465 9.48199 17.465C13.917 17.465 17.5241 13.87 17.5241 9.45C17.5241 5.02999 13.917 1.435 9.48199 1.435ZM9.48199 18.9C4.25434 18.9 0 14.66 0 9.45C0 4.24001 4.25434 0 9.48199 0C14.7096 0 18.964 4.24001 18.964 9.45C18.964 14.66 14.7096 18.9 9.48199 18.9Z" fill="#261B1A"/>
+<path d="M9.4813 6.25909C6.38085 6.25909 3.85732 8.7741 3.85732 11.8641C3.85732 14.9541 6.38085 17.4691 9.4813 17.4691C12.5817 17.4691 15.1053 14.9541 15.1053 11.8641C15.1053 8.7741 12.5817 6.25909 9.4813 6.25909ZM9.4813 18.8991C5.58816 18.8991 2.41748 15.7441 2.41748 11.8591C2.41748 7.9741 5.58314 4.81909 9.4813 4.81909C13.3795 4.81909 16.5451 7.9741 16.5451 11.8591C16.5451 15.7441 13.3795 18.8991 9.4813 18.8991Z" fill="#261B1A"/>
+<path d="M9.48236 11.0777C7.71641 11.0777 6.27654 12.5127 6.27654 14.2727C6.27654 16.0327 7.71641 17.4677 9.48236 17.4677C11.2483 17.4677 12.6882 16.0327 12.6882 14.2727C12.6882 12.5127 11.2483 11.0777 9.48236 11.0777ZM9.48236 18.8977C6.92372 18.8977 4.84172 16.8227 4.84172 14.2727C4.84172 11.7227 6.92372 9.64772 9.48236 9.64772C12.041 9.64772 14.123 11.7227 14.123 14.2727C14.123 16.8227 12.041 18.8977 9.48236 18.8977Z" fill="#261B1A"/>
+<path d="M37.8966 16.37C36.2912 18.125 34.1741 19 31.5404 19C28.9064 19 26.7992 18.125 25.209 16.37C23.6036 14.65 22.8009 12.36 22.8009 9.50001C22.8009 6.64 23.6036 4.36001 25.209 2.60501C26.8043 0.87 28.9115 0 31.5452 0C34.1791 0 36.2963 0.87 37.9017 2.60501C39.4921 4.375 40.2847 6.67502 40.2847 9.50001C40.2847 12.325 39.4921 14.635 37.9017 16.37H37.8966ZM26.8293 14.995C28.0084 16.355 29.5786 17.04 31.5452 17.04C33.512 17.04 35.0822 16.36 36.2613 14.995C37.4401 13.65 38.0271 11.82 38.0271 9.50501C38.0271 7.19 37.4351 5.36001 36.2613 4.01501C35.0822 2.65501 33.512 1.97 31.5452 1.97C29.5786 1.97 28.0084 2.64999 26.8293 4.01501C25.6503 5.36001 25.0635 7.19 25.0635 9.50501C25.0635 11.82 25.6503 13.65 26.8293 14.995Z" fill="#261B1A"/>
+<path d="M51.4149 7.30467V0.409675H53.4668V18.5947H51.5203V16.5497C50.4616 18.1147 48.9467 18.8997 46.9849 18.8997C45.1238 18.8997 43.6337 18.2697 42.5248 17.0097C41.3962 15.7497 40.8342 14.0797 40.8342 12.0047C40.8342 9.92969 41.3962 8.21467 42.5248 6.97468C43.6185 5.72969 45.1035 5.10967 46.9849 5.10967C48.8663 5.10967 50.3564 5.83967 51.4199 7.30467H51.4149ZM44.1404 15.7597C44.9081 16.6297 45.9414 17.0597 47.2409 17.0597C48.5401 17.0597 49.5737 16.6097 50.3412 15.7047C51.1089 14.8197 51.4952 13.5847 51.4952 11.9997C51.4952 10.4147 51.1089 9.19968 50.3412 8.29468C49.5737 7.38968 48.5401 6.93968 47.2409 6.93968C45.9414 6.93968 44.9281 7.40469 44.1553 8.32967C43.3777 9.25968 42.9914 10.5147 42.9914 12.0947C42.9914 13.6747 43.3777 14.8797 44.1454 15.7447L44.1404 15.7597Z" fill="#261B1A"/>
+<path d="M63.7136 12.8727V5.41775H65.7656V18.5978H63.8191V16.6327C62.8106 18.1478 61.4259 18.9078 59.67 18.9078C58.2002 18.9078 57.0561 18.5078 56.2333 17.7078C55.4157 16.9078 55.0043 15.7827 55.0043 14.3378V5.41275H57.0561V14.1228C57.0561 16.0827 58.0646 17.0578 60.0813 17.0578C61.0397 17.0578 61.8824 16.6977 62.62 15.9828C63.3525 15.2678 63.7238 14.2277 63.7238 12.8678L63.7136 12.8727Z" fill="#261B1A"/>
+<path d="M73.4028 5.10803C74.8728 5.10803 76.0167 5.50801 76.8343 6.30803C77.6522 7.10802 78.0636 8.23302 78.0636 9.67804V18.593H76.0116V9.88304C76.0116 7.92303 75.0031 6.94803 72.9864 6.94803C72.0283 6.94803 71.1853 7.30803 70.4477 8.02302C69.7155 8.73804 69.3441 9.77803 69.3441 11.138V18.593H67.2922V5.41302H69.2387V7.37802C70.2472 5.86303 71.6319 5.10303 73.3927 5.10303L73.4028 5.10803Z" fill="#261B1A"/>
+<path d="M91.0057 12.0045V12.7195H80.9616C81.062 14.1495 81.4635 15.2245 82.1658 15.9495C82.8681 16.6745 83.8214 17.0345 85.0355 17.0345C86.8616 17.0345 88.0356 16.2145 88.5474 14.5845H90.6744C90.3132 15.9145 89.6509 16.9645 88.6777 17.7395C87.7044 18.5145 86.4753 18.8995 84.9853 18.8995C83.1591 18.8995 81.6792 18.2795 80.5503 17.0345C79.4064 15.7895 78.8346 14.1145 78.8346 12.0045C78.8346 9.8945 79.3965 8.25949 80.5252 6.99949C81.634 5.73949 83.1039 5.1095 84.9351 5.1095C86.7663 5.1095 88.3165 5.76449 89.3952 7.0745C90.4739 8.38449 91.0107 10.0295 91.0107 12.0045H91.0057ZM84.93 6.97449C83.8515 6.97449 82.9736 7.3095 82.2913 7.9845C81.609 8.6595 81.1824 9.6245 81.0118 10.8845H88.8031C88.7028 9.72449 88.3066 8.78449 87.6243 8.06448C86.942 7.3395 86.0439 6.97948 84.9351 6.97948L84.93 6.97449Z" fill="#261B1A"/>
+</svg></span>
+    <div class="pied__actions"><a href="mailto:contact@odune.fr">Nous contacter</a><a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Démarrer un projet</a></div>
+  </div>
+  <div class="pied__reseaux">
+    <a href="https://www.instagram.com/odune.fr/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/company/odune/" target="_blank" rel="noopener">Linkedin</a><a href="https://www.tiktok.com/@odune.fr" target="_blank" rel="noopener">Tiktok</a><a href="https://wa.me/33743664075" target="_blank" rel="noopener">Whatsapp</a><a href="#mentions">Mentions légales</a>
+  </div>
+</footer>
+</div>
+
+<span class="mention">Prototype — visuels et textes entre crochets à fournir</span>
+<script>
+/* ----- routeur ----- */
+var ROUTES=["accueil","methode","services","projets","agence","mentions"];
+var routeCourante="accueil";
+function route(){
+  var h=(location.hash||"#accueil").slice(1);
+  var nom = h.indexOf("projet/")===0 ? "projets" : h.split("/")[0];
+  if(ROUTES.indexOf(nom)===-1) nom="accueil";
+  routeCourante=nom;
+  ROUTES.forEach(function(r){
+    var el=document.getElementById("r-"+r);
+    if(r===nom) el.setAttribute("data-actif",""); else el.removeAttribute("data-actif");
+  });
+  document.querySelectorAll("[data-route]").forEach(function(a){
+    if(a.classList.contains("nav__item")){
+      if(a.dataset.route===nom) a.setAttribute("aria-current","page");
+      else a.removeAttribute("aria-current");
+    }
+  });
+  window.scrollTo(0,0);
+  etatNav();
+  if(nom==="methode" && window.methodeRecalc) window.methodeRecalc();
+}
+window.addEventListener("hashchange",route);
+
+/* ----- navigation rétractable ----- */
+var nav=document.getElementById("nav"),bascule=document.getElementById("bascule");
+var mobile=window.matchMedia("(max-width: 760px)");
+var ouvert=false;
+function etatNav(){
+  if(ouvert){nav.dataset.etat="ouvert";return;}
+  if(mobile.matches||routeCourante!=="accueil"){nav.dataset.etat="compact";return;}
+  nav.dataset.etat=window.scrollY>24?"compact":"large";
+}
+function basculer(){
+  ouvert=!ouvert;
+  bascule.setAttribute("aria-expanded",ouvert?"true":"false");
+  bascule.setAttribute("aria-label",ouvert?"Fermer le menu":"Ouvrir le menu");
+  etatNav();
+}
+bascule.addEventListener("click",basculer);
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&ouvert)basculer();});
+document.addEventListener("click",function(e){if(ouvert&&!nav.contains(e.target))basculer();});
+window.addEventListener("scroll",etatNav,{passive:true});
+mobile.addEventListener("change",etatNav);
+document.getElementById("panneau").addEventListener("click",function(e){
+  if(e.target.closest("a")&&ouvert)basculer();
+});
+
+/* ----- séquence épinglée (méthode) ----- */
+(function(){
+  var sequence=document.getElementById("sequence");
+  if(!sequence)return;
+  var etapes=Array.prototype.slice.call(sequence.querySelectorAll(".etape"));
+  var total=etapes.length,bureau=window.matchMedia("(min-width: 861px)"),courant=-1;
+  function hauteur(){sequence.style.height=(total*140)+"vh";}
+  function suivre(){
+    if(routeCourante!=="methode")return;
+    var haut=sequence.getBoundingClientRect().top+window.scrollY;
+    var course=sequence.offsetHeight-window.innerHeight;
+    var p=(window.scrollY-haut)/(course||1);
+    p=Math.min(Math.max(p,0),0.9999);
+    var i=Math.floor(p*total);
+    if(i===courant)return;
+    courant=i;
+    etapes.forEach(function(el,n){
+      if(n===i)el.setAttribute("data-actif","");else el.removeAttribute("data-actif");
+    });
+  }
+  window.addEventListener("scroll",suivre,{passive:true});
+  window.addEventListener("resize",function(){hauteur();courant=-1;suivre();});
+  bureau.addEventListener("change",function(){hauteur();courant=-1;suivre();});
+  window.methodeRecalc=function(){hauteur();courant=-1;suivre();};
+  hauteur();
+})();
+
+document.querySelectorAll(".onglet").forEach(function(b){
+  b.addEventListener("click",function(){document.body.dataset.modeServices=b.dataset.mode;});
+});
+
+route();
+
+/* ----- révélations au scroll ----- */
+(function(){
+  if(window.matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+  if(!("IntersectionObserver" in window)) return;
+  var sels=[
+    ".hero__titre",".hero__sous",".hero .bouton",".suite__bloc",
+    ".accroche__titre",".accroche__note",".rang",".duree__bloc",".carte",".appel__titre",".appel .bouton",".final",
+    ".s-accroche__texte",".s-accroche__bloc>.bouton",".groupe",".s-sans__bloc",".s-appel__bloc",
+    ".fixe__lab",".fixe__texte",".tuile",".mosaique .vis",".mosaique-mob .vis",".bandeau",
+    ".a-accroche__texte",".a-accroche__droite .vis",".a-ligne",".a-valeurs__tete",".a-carte"
+  ];
+  var els=Array.prototype.slice.call(document.querySelectorAll(sels.join(",")));
+  els.forEach(function(e){e.classList.add("rev");});
+  var io=new IntersectionObserver(function(entrees){
+    var lot=entrees.filter(function(x){return x.isIntersecting;});
+    lot.forEach(function(x,i){
+      var e=x.target;
+      e.style.setProperty("--d",Math.min(i,4)*90+"ms");
+      e.classList.add("vu");
+      io.unobserve(e);
+      setTimeout(function(){
+        e.classList.remove("rev","vu");
+        e.style.removeProperty("--d");
+      },1500);
+    });
+  },{threshold:0.08});
+  els.forEach(function(e){io.observe(e);});
+})();
+
+/* ----- pourquoi odune : lever de jour piloté par le défilement ----- */
+(function(){
+  if(window.matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+  var sec=document.querySelector(".a-pourquoi");
+  if(!sec) return;
+  var colle=document.createElement("div"); colle.className="a-pourquoi__colle";
+  while(sec.firstChild) colle.appendChild(sec.firstChild);
+  sec.appendChild(colle);
+  var halo=document.createElement("div"); halo.className="a-pourquoi__halo";
+  colle.insertBefore(halo,colle.firstChild);
+  var blanc=document.createElement("div"); blanc.className="a-pourquoi__blanc";
+  colle.insertBefore(blanc,colle.children[1]);
+  function cl2(x){return Math.min(Math.max(x,0),1);}
+  function lisse2(x){return x*x*(3-2*x);}
+  function jour(){
+    var vh=window.innerHeight;
+    var r=sec.getBoundingClientRect();
+    if(r.bottom<-vh||r.top>vh*2) return;
+    var q=lisse2(cl2((vh*0.1-r.top)/((r.height-vh)*0.6)));
+    halo.style.opacity=1;
+    halo.style.transform="translateY("+(4-66*q).toFixed(2)+"%)";
+    blanc.style.opacity=lisse2(cl2((q-0.78)/0.22));
+    /* la typo s'inverse au passage de l'arc */
+    var t=lisse2(cl2((q-0.40)/0.14));
+    var rr=Math.round(249+(38-249)*t), gg=Math.round(249+(27-249)*t), bb=Math.round(249+(26-249)*t);
+    colle.style.color="rgb("+rr+","+gg+","+bb+")";
+  }
+  window.addEventListener("scroll",jour,{passive:true});
+  window.addEventListener("resize",jour);
+  window.addEventListener("hashchange",function(){setTimeout(jour,50);});
+  jour();
+})();
+
+/* ----- affirmation méthode : texte épinglé, mots surlignés + points ----- */
+(function(){
+  if(window.matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+  if(!("IntersectionObserver" in window)) return;
+  var aff=document.querySelector(".affirmation");
+  if(!aff) return;
+  var colle=document.createElement("div"); colle.className="affirmation__colle";
+  while(aff.firstChild) colle.appendChild(aff.firstChild);
+  aff.appendChild(colle);
+  function decoupe(el){
+    Array.prototype.slice.call(el.childNodes).forEach(function(n){
+      if(n.nodeType===3){
+        var frag=document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(function(part){
+          if(part==="") return;
+          if(/^\s+$/.test(part)){ frag.appendChild(document.createTextNode(part)); return; }
+          var s=document.createElement("span"); s.className="mot"; s.textContent=part;
+          frag.appendChild(s);
+        });
+        el.replaceChild(frag,n);
+      } else if(n.nodeType===1) decoupe(n);
+    });
+  }
+  colle.querySelectorAll("p").forEach(decoupe);
+  var mots=colle.querySelectorAll(".mot");
+  var pointsListe=[];
+  function cl(x){return Math.min(Math.max(x,0),1);}
+  function lisse(x){return x*x*(3-2*x);}
+  function scrub(){
+    var vh=window.innerHeight;
+    var r=aff.getBoundingClientRect();
+    if(r.bottom<-vh||r.top>vh*2) return;
+    var p=(vh*0.4-r.top)/(r.height-vh*0.8);
+    p=Math.min(Math.max(p,0),1);
+    var n=Math.round(p*mots.length);
+    for(var i=0;i<mots.length;i++){
+      if(i<n) mots[i].setAttribute("data-lu","");
+      else mots[i].removeAttribute("data-lu");
+    }
+    /* points : arrivée et départ pilotés par le défilement */
+    var t=(vh*0.8-r.top)/(vh*0.8 + r.height - vh);
+    pointsListe.forEach(function(pt){
+      var e=lisse(cl((t-pt.d)/0.3));
+      var s=lisse(cl((t-0.72-pt.d*0.7)/0.18));
+      var f=e*(1-s);
+      pt.el.style.opacity=f;
+      pt.el.style.transform="translate("+(pt.dx*(1-f)).toFixed(1)+"px,"+(pt.dy*(1-f)).toFixed(1)+"px)";
+    });
+  }
+  window.addEventListener("scroll",scrub,{passive:true});
+  window.addEventListener("resize",scrub);
+  window.addEventListener("hashchange",function(){setTimeout(scrub,50);});
+  /* disposition icomat : x%, y%, glissement (dx,dy) en px, retard en s */
+  var POS=[
+    [9.6,14.5,-70,0,.21],[9.6,50,-70,0,.09],[9.6,85.5,-70,0,.27],
+    [16.3,14.5,-70,0,.12],[16.3,50,-70,0,0],[16.3,85.5,-70,0,.18],
+    [50,14.5,0,-26,.15],[50,85.5,0,26,.24],
+    [83.7,14.5,70,0,.09],[83.7,50,70,0,.03],[83.7,85.5,70,0,.21],
+    [90.4,14.5,70,0,.24],[90.4,50,70,0,.15],[90.4,85.5,70,0,.30]
+  ];
+  var c=document.createElement("div"); c.className="points"; c.setAttribute("aria-hidden","true");
+  POS.forEach(function(pt){
+    var d=document.createElement("i"); d.className="point";
+    d.style.left=pt[0]+"%"; d.style.top=pt[1]+"%";
+    c.appendChild(d);
+    pointsListe.push({el:d,dx:pt[2],dy:pt[3],d:pt[4]});
+  });
+  colle.appendChild(c);
+  scrub();
+})();
+
+(function(){
+  var P = [{"slug": "clemenceau", "nom": "Clemenceau", "cat": "[Secteur]", "texte": "[À écrire — deux ou trois phrases sur Clemenceau.]", "service": "[Service principal]", "services": ["Stratégie", "Image de marque"], "enjeux": "[À écrire — les enjeux du projet Clemenceau.]", "mosaique": [[{"src": "img/clem-1.webp", "ar": "2942/1462", "fx": 2942}], [{"src": "img/clem-2.webp", "ar": "1167/1366", "fx": 1167}, {"src": "img/clem-3.webp", "ar": "1759/1366", "fx": 1759}], [{"src": "img/clem-4.webp", "ar": "1858/1686", "fx": 1858}, {"src": "img/clem-5.webp", "ar": "1068/1686", "fx": 1068}]]}, {"slug": "oupi", "nom": "Oupi", "cat": "[Secteur]", "texte": "[À écrire — deux ou trois phrases sur Oupi.]", "service": "[Service principal]", "services": ["Stratégie", "Image de marque", "Communication"], "enjeux": "[À écrire — les enjeux du projet Oupi.]", "mosaique": [[{"src": "img/oupi-1.webp", "ar": "2942/1052", "fx": 2942}], [{"src": "img/oupi-2.webp", "ar": "1756/839", "fx": 1756}, {"src": "img/oupi-3.webp", "ar": "1167/839", "fx": 1167}], [{"src": "img/oupi-4.webp", "ar": "1857/1052", "fx": 1857}, {"src": "img/oupi-5.webp", "ar": "1052/1052", "fx": 1066}], [{"src": "img/oupi-6.webp", "ar": "1503/839", "fx": 1503}, {"src": "img/oupi-7.webp", "ar": "1396/839", "fx": 1420}]]}, {"slug": "atelier-2m", "nom": "Atelier 2m", "cat": "[Secteur]", "texte": "[À écrire — deux ou trois phrases sur Atelier 2m.]", "service": "[Service principal]", "services": ["Image de marque", "Communication"], "enjeux": "[À écrire — les enjeux du projet Atelier 2m.]", "mosaique": [[{"src": "img/at2m-1.webp", "ar": "2942/1052", "fx": 2942}], [{"src": "img/at2m-2.webp", "ar": "1756/839", "fx": 1756}, {"src": "img/at2m-3.webp", "ar": "1167/839", "fx": 1167}], [{"src": "img/at2m-4.webp", "ar": "1857/1052", "fx": 1871}, {"src": "img/at2m-5.webp", "ar": "1052/1052", "fx": 1052}], [{"src": "img/at2m-6.webp", "ar": "1167/839", "fx": 1167}, {"src": "img/at2m-7.webp", "ar": "1756/839", "fx": 1756}]]}, {"slug": "polyphonie", "nom": "Polyphonie", "cat": "Édition", "texte": "Quatres livres sur l’amour. Un pays, une relation et une couleur par volume. Des entretiens publiés en récits et en podcast, nos photographies argentiques. C'est là qu'on apprend à raconter.", "service": "Direction Artistique", "services": ["Stratégie", "Image de marque", "Communication", "Abonnement"], "enjeux": "[À écrire — les enjeux du projet Polyphonie, dans la même forme que le texte de Tolem.]", "mosaique": [[{"src": "img/poly-1.webp", "ar": "2942/1462", "fx": 2942}], [{"src": "img/poly-2.webp", "ar": "1167/1366", "fx": 1167}, {"src": "img/poly-3.webp", "ar": "1756/1366", "fx": 1756}], [{"src": "img/poly-4.webp", "ar": "1858/1686", "fx": 1858}, {"src": "img/poly-5.webp", "ar": "1052/1686", "fx": 1052}]]}, {"slug": "campero", "nom": "Campero", "cat": "[Secteur]", "texte": "[À écrire — deux ou trois phrases sur Campero.]", "service": "[Service principal]", "services": ["Image de marque", "Communication"], "enjeux": "[À écrire — les enjeux du projet Campero.]", "mosaique": [[{"src": "img/camp-1.webp", "ar": "2942/1052", "fx": 2942}], [{"src": "img/camp-2.webp", "ar": "1756/839", "fx": 1756}, {"src": "img/camp-3.webp", "ar": "1167/839", "fx": 1167}], [{"src": "img/camp-4.webp", "ar": "1857/1052", "fx": 1857}, {"src": "img/camp-5.webp", "ar": "1052/1052", "fx": 1066}], [{"src": "img/camp-6.webp", "ar": "1503/839", "fx": 1503}, {"src": "img/camp-7.webp", "ar": "1396/839", "fx": 1420}]]}, {"slug": "tolem", "nom": "Tolem", "cat": "[Secteur]", "texte": "[À écrire — deux ou trois phrases sur Tolem, même longueur que Polyphonie.]", "service": "[Service principal]", "services": ["Stratégie", "Image de marque", "Communication", "Abonnement"], "enjeux": "Création à partir de zéro, ou refonte quand l'image a pris du retard sur l'entreprise. Nous restons jusqu'au déploiement. Chaque devis existe en deux niveaux. Essentielle couvre le nécessaire. Complète ajoute le confortable.", "mosaique": [[{"src": "img/tolem-1.webp", "ar": "2942/1274", "fx": 2942}], [{"src": "img/tolem-2.webp", "ar": "1756/839", "fx": 1756}, {"src": "img/tolem-3.webp", "ar": "1167/839", "fx": 1167}], [{"src": "img/tolem-4.webp", "ar": "841/1052", "fx": 841}, {"src": "img/tolem-5.webp", "ar": "2073/1052", "fx": 2082}], [{"src": "img/tolem-6.webp", "ar": "1204/1379", "fx": 1204}, {"src": "img/tolem-7.webp", "ar": "1709/1379", "fx": 1719}]]}];
+  var fixe=document.getElementById("fixe-projets");
+  var nom=document.getElementById("pj-nom"),cat=document.getElementById("pj-cat"),
+      texte=document.getElementById("pj-texte"),serv=document.getElementById("pj-service");
+  var courant=0, minuterie=null;
+
+  function montrer(i){
+    if(i===courant) return;
+    courant=i;
+    fixe.setAttribute("data-transition","");
+    clearTimeout(minuterie);
+    minuterie=setTimeout(function(){
+      var p=P[i];
+      nom.textContent=p.nom; cat.textContent=p.cat; texte.textContent=p.texte; serv.textContent=p.service;
+      fixe.removeAttribute("data-transition");
+    },220);
+  }
+  document.querySelectorAll(".tuile").forEach(function(t){
+    t.addEventListener("mouseenter",function(){ montrer(+t.dataset.i); });
+    t.addEventListener("focus",function(){ montrer(+t.dataset.i); });
+  });
+
+  /* pages */
+  var pProjets=document.getElementById("p-projets"), pProjet=document.getElementById("p-projet");
+  var ppNom=document.getElementById("pp-nom"), ppServ=document.getElementById("pp-services"), ppEnj=document.getElementById("pp-enjeux"),
+      ppBan=document.getElementById("pp-bandeau");
+  function ouvrir(slug){
+    var p=P.filter(function(x){return x.slug===slug;})[0];
+    if(!p){ fermer(); return; }
+    ppNom.textContent=p.nom.toUpperCase();
+    ppServ.innerHTML=p.services.map(function(s){return "<p>"+s+"</p>";}).join("");
+    ppEnj.textContent=p.enjeux;
+    if(ppBan) ppBan.textContent=p.enjeux;
+    var pMosa=document.getElementById("mosaique-proj");
+    if(pMosa){
+      if(p.mosaique){
+        pMosa.innerHTML=p.mosaique.map(function(rang){
+          return '<div class="mosaique__rang">'+rang.map(function(v){
+            return '<div class="vis" style="flex:'+v.fx+' 1 0;aspect-ratio:'+v.ar+'"><img class="vis__img" src="'+v.src+'" alt=""></div>';
+          }).join('')+'</div>';
+        }).join('');
+        pProjet.setAttribute("data-mosa","");
+      } else {
+        pProjet.removeAttribute("data-mosa");
+        pMosa.innerHTML="";
+      }
+    }
+    pProjets.removeAttribute("data-actif"); pProjet.setAttribute("data-actif","");
+    window.scrollTo(0,0);
+  }
+  function fermer(){
+    pProjet.removeAttribute("data-actif"); pProjets.setAttribute("data-actif","");
+    window.scrollTo(0,0);
+  }
+  function router(){
+    var h=location.hash||"";
+    if(h.indexOf("#projet/")===0) ouvrir(h.slice(8)); else fermer();
+  }
+  document.querySelectorAll("[data-va='projets']").forEach(function(b){
+    b.addEventListener("click",function(e){e.preventDefault();location.hash="#projets";});
+  });
+  document.querySelectorAll(".tuile").forEach(function(t){
+    t.addEventListener("click",function(e){e.preventDefault();location.hash=t.getAttribute("href");});
+  });
+  window.addEventListener("hashchange",router);
+  router();
+
+  /* visionneuse plein écran — mobile uniquement */
+  var vn=document.getElementById("visionneuse");
+  if(vn&&pProjet){
+    var vnImg=vn.querySelector("img"), vnMob=window.matchMedia("(max-width:960px)");
+    pProjet.addEventListener("click",function(e){
+      var img=e.target.closest(".vis__img");
+      if(!img||!vnMob.matches) return;
+      vnImg.src=img.src;
+      vn.setAttribute("data-ouverte","");
+      requestAnimationFrame(function(){requestAnimationFrame(function(){vn.setAttribute("data-visible","");});});
+      document.body.style.overflow="hidden";
+    });
+    function vnFermer(){
+      vn.removeAttribute("data-visible");
+      setTimeout(function(){vn.removeAttribute("data-ouverte");vnImg.src="";},280);
+      document.body.style.overflow="";
+    }
+    vn.addEventListener("click",vnFermer);
+    document.addEventListener("keydown",function(e){if(e.key==="Escape"&&vn.hasAttribute("data-ouverte"))vnFermer();});
+  }
+})();</script>
