@@ -366,7 +366,8 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   .defile--abo{padding:170px var(--marge) 170px}
   .groupe{grid-template-columns:1fr;gap:0}
   .groupe__titre{white-space:normal;margin-bottom:35px}
-  .groupe__img{display:block;height:192px;background:var(--gris-image);margin-bottom:35px}
+  .groupe__img{display:block;height:192px;background:var(--gris-image);margin-bottom:35px;border-radius:12px;overflow:hidden}
+  .groupe__img img{width:100%;height:100%;object-fit:cover;display:block}
   .groupe__desc{width:auto}
   .s-sans__bloc{width:100%}
   .s-sans__titre{width:100%;font-size:24px;line-height:32px}
@@ -1054,7 +1055,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   <div class="defile defile--services mode-projet">
     <div class="groupe">
   <p class="groupe__titre">Stratégie</p>
-  <div class="groupe__img"></div>
+  <div class="groupe__img"><img src="img/marketing.webp" alt="" loading="lazy"></div>
   <div class="groupe__contenu">
     <p class="groupe__desc">Votre marché, votre client et ses biais de décision, analysés avant de choisir un positionnement et un discours.</p>
     <ul class="liste"><li>Analyse du marché et de la concurrence</li><li>Cibles et ses biais cognitifs</li><li>Positionnement</li><li>Naming et socle verbal</li><li>Storytelling de marque</li><li>Architecture d'offre et de gamme</li><li>Parcours client et points de contact</li><li>Feuille de route marketing</li><li>Architecture web et parcours de conversion</li></ul>
@@ -1062,7 +1063,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 </div>
     <div class="groupe">
   <p class="groupe__titre groupe__titre--haut">Image<br>de marque</p>
-  <div class="groupe__img"></div>
+  <div class="groupe__img"><img src="img/image-de-marque.webp" alt="" loading="lazy"></div>
   <div class="groupe__contenu">
     <p class="groupe__desc">Une identité que votre client lit correctement au premier regard, avec les garde-fous qui l'empêchent de dériver.</p>
     <ul class="liste"><li>Direction artistique et moodboards</li><li>Logo et déclinaisons</li><li>Système visuel, couleur et typographie</li><li>Charte graphique et brand book</li><li>Direction photographique et vidéo</li><li>Carte, menu, signalétique et devanture</li><li>Packaging et étiquettes</li><li>Gabarits réseaux sociaux et présentation</li><li>Suivi architecte et espace</li><li>Fichiers sources et kit Figma</li></ul>
@@ -1070,7 +1071,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 </div>
     <div class="groupe">
   <p class="groupe__titre groupe__titre--haut">Communication</p>
-  <div class="groupe__img"></div>
+  <div class="groupe__img"><img src="img/communication-par-projet.webp" alt="" loading="lazy"></div>
   <div class="groupe__contenu">
     <p class="groupe__desc">Tout ce qu'il faut pour prendre la parole dès le lendemain de la livraison, sans rupture avec l'identité.</p>
     <ul class="liste"><li>Gabarits Réels, posts et stories</li><li>Bannières et photo de profil</li><li>Signature email</li><li>Carte de visite &amp; carte de fidélité</li><li>Affiche et flyer</li><li>Présentation commerciale</li><li>Magazine, brochure et catalogue</li><li>Mise en page éditoriale</li></ul>
@@ -1080,7 +1081,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   <div class="defile defile--services defile--abo mode-abo">
     <div class="groupe">
   <p class="groupe__titre groupe__titre--haut">Communication</p>
-  <div class="groupe__img"></div>
+  <div class="groupe__img"><img src="img/communication-abo.webp" alt="" loading="lazy"></div>
   <div class="groupe__contenu">
     <p class="groupe__desc">Vos contenus produits, validés et publiés chaque mois, dans votre ton.</p>
     <ul class="liste"><li>Cadrage éditorial et piliers</li><li>Scripts</li><li>Storyboard et direction créative</li><li>Réels</li><li>Posts et carrousels</li><li>Stories</li><li>Validation et planification</li><li>Publication</li></ul>
@@ -1088,7 +1089,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 </div>
     <div class="groupe">
   <p class="groupe__titre groupe__titre--haut">Publicité</p>
-  <div class="groupe__img"></div>
+  <div class="groupe__img"><img src="img/publicite-abo.webp" alt="" loading="lazy"></div>
   <div class="groupe__contenu">
     <p class="groupe__desc">Vos campagnes construites, pilotées et mesurées, avec un bilan lisible en fin de mois.</p>
     <ul class="liste"><li>Campagnes Meta, Google, Pinterest, LinkedIn, mise en place et pilotage</li><li>Accroches et angles publicitaires</li><li>Visuels et vidéos aux formats natifs</li><li>Mesure de chaque inscription à sa source</li><li>Ajustement des annonces chaque semaine</li><li>Arbitrage des budgets entre campagnes</li><li>Bilan mensuel et recommandations</li></ul>
@@ -1273,15 +1274,15 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 <section class="a-valeurs">
   <div class="a-carte">
     <div class="a-carte__img"><img class="vis__img" src="img/portrait.webp" alt=""><span>Visuel</span></div>
-    <div class="a-carte__texte"><p class="a-carte__titre">Comprendre avant de créer.</p><p class="a-carte__desc">Aucun choix graphique sans une raison qui tient à la perception du client.</p></div>
+    <div class="a-carte__texte"><p class="a-carte__titre">Comprendre avant de créer.</p><p class="a-carte__desc">Chaque recommandation s'appuie sur le marché, la psychologie de votre cible et ce qui génère des demandes, pas sur nos préférences. Vous savez toujours pourquoi votre marque est ce qu'elle est.</p></div>
   </div>
   <div class="a-carte">
     <div class="a-carte__img"><img class="vis__img" src="img/portrait.webp" alt=""><span>Visuel</span></div>
-    <div class="a-carte__texte"><p class="a-carte__titre">Rendre autonome.</p><p class="a-carte__desc">Vous recevez les sources.<br>Vous pouvez continuer sans nous.</p></div>
+    <div class="a-carte__texte"><p class="a-carte__titre">Rendre autonome et libre.</p><p class="a-carte__desc">Fichiers sources, gabarits et charte vous sont livrés en fin de projet. Vous restez libres de continuer sans nous, et la plupart de nos clients reviennent. C'est la meilleure preuve que nous puissions montrer.</p></div>
   </div>
   <div class="a-carte">
     <div class="a-carte__img"><img class="vis__img" src="img/portrait.webp" alt=""><span>Visuel</span></div>
-    <div class="a-carte__texte"><p class="a-carte__titre">Des décisions, jamais des goûts.</p><p class="a-carte__desc">Chaque recommandation s'appuie sur le marché, la psychologie de votre cible et ce qui génère des demandes, pas sur nos préférences.</p></div>
+    <div class="a-carte__texte"><p class="a-carte__titre">Travailler en transparence.</p><p class="a-carte__desc">Nous avançons étape par étape et vous suivez chaque avancée. Vous êtes informé, vous validez, et vous comprenez le sens de ce qui se construit avant de passer à la suite.</p></div>
   </div>
 </section>
 
