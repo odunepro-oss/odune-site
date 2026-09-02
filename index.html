@@ -376,6 +376,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 
 .fixe--projets{width:345px}
 .fixe--projets .fixe__corps{width:285px}
+.fixe--projets .fixe__corps,.fixe--projet .fixe__corps{font-size:12px;line-height:14px}
 .fixe--projets .fixe__note{width:300px}
 .fixe__lab span,.fixe__texte p{transition:opacity .25s ease}
 .fixe[data-transition] .fixe__lab span,.fixe[data-transition] .fixe__texte p{opacity:0}
@@ -648,7 +649,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 .acc-pole{flex:1;background:var(--gris-carte);border-radius:12px;padding:46px 30px;display:flex;flex-direction:column;gap:12px;text-align:left}
 .acc-pole__nom{font-size:20px;line-height:22px}
 .acc-pole__desc{font-size:12px;line-height:16px;color:var(--gris-2)}
-.acc-projets__duo{display:flex;gap:6px;width:100%;max-width:1000px;margin-top:16px}
+.acc-projets__duo{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%;max-width:1000px;margin-top:16px}
 .acc-projets__vis{flex:1;border-radius:12px;overflow:hidden;display:block;aspect-ratio:4/3;background:var(--gris-image);
   transition:transform .5s cubic-bezier(.34,1.5,.55,1)}
 .acc-projets__vis:hover{transform:scale(.984)}
@@ -683,7 +684,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   .acc-bloc--premier{padding-top:150px}
   .acc-titre{font-size:24px;line-height:28px}
   .acc-poles__grille{flex-direction:column}
-  .acc-projets__duo{flex-direction:column}
+  .acc-projets__duo{grid-template-columns:1fr}
   .acc-projets__vis{aspect-ratio:315/220}
   .acc-gains{padding:60px var(--marge);gap:44px}
   .acc-gains__grille{grid-template-columns:1fr;gap:36px}
@@ -807,8 +808,10 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 <section class="acc-bloc">
   <p class="acc-titre">Le travail parle mieux que nous.</p>
   <div class="acc-projets__duo">
-    <a class="acc-projets__vis" href="#projet/clemenceau" aria-label="Voir le projet Clemenceau"><img  src="img/t0.webp" alt=""></a>
-    <a class="acc-projets__vis" href="#projet/polyphonie" aria-label="Voir le projet Polyphonie"><img  src="img/t3.webp" alt=""></a>
+    <a class="acc-projets__vis" href="#projet/atelier-2m" aria-label="Voir le projet Atelier 2m"><img data-src-de="2" alt=""></a>
+    <a class="acc-projets__vis" href="#projet/clemenceau" aria-label="Voir le projet Clemenceau"><img data-src-de="0" alt=""></a>
+    <a class="acc-projets__vis" href="#projet/oupi" aria-label="Voir le projet Oupi"><img data-src-de="1" alt=""></a>
+    <a class="acc-projets__vis" href="#projet/polyphonie" aria-label="Voir le projet Polyphonie"><img data-src-de="3" alt=""></a>
   </div>
   <a class="acc-lien" href="#projets">Tous les projets</a>
 </section>
@@ -1246,7 +1249,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 <section class="a-lignes">
   <div class="a-ligne">
     <p class="a-ligne__titre">Un seul interlocuteur,<br>du premier appel à la livraison.</p>
-    <p class="a-ligne__texte">Ilona pilote chaque projet. Vous parlez à la personne qui pense la stratégie et qui valide chaque livrable. Rien ne se perd entre les deux.</p>
+    <p class="a-ligne__texte">Ilona pilote chaque projet. Vous parlez à la personne qui construit la stratégie, arbitre les choix créatifs et valide chaque livrable. Rien ne se perd en route.</p>
   </div>
   <div class="a-ligne">
     <p class="a-ligne__titre">Le suivi passe par<br>WhatsApp Business.</p>
@@ -1258,8 +1261,8 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   <div class="a-pourquoi__bloc">
     <p class="a-pourquoi__titre">Pourquoi Odune</p>
     <div class="a-pourquoi__corps">
-      <p>J'ai ouvert Odune parce que je voyais des marques bien dessinées et mal comprises. Le logo était propre, le site était beau, et le client ne saisissait toujours pas pourquoi il devait payer ce prix. Le design ne créait pas la perception, il la décorait.</p>
-      <p>Odune part de l'autre bout. D'abord ce que votre client voit, retient et déduit sans y penser. Ensuite seulement ce qu'on dessine. Une identité construite comme ça n'a pas besoin d'être refaite dans dix-huit mois.</p>
+      <p>J'ai ouvert Odune parce que je voyais des marques bien dessinées et mal comprises. Le logo était propre, le site était beau, et le client ne saisissait toujours pas pourquoi il devait payer ce prix. Le design décorait la perception au lieu de la construire.</p>
+      <p>Odune part de l'autre bout. D'abord comprendre comment votre client décide, ses biais, ses freins, ce qu'il déduit de vous sans y penser. Ensuite construire la stratégie, l'image et la communication qui s'appuient dessus. Une marque pensée dans cet ordre convertit mieux, et n'a pas besoin d'être refaite dans dix-huit mois.</p>
       <p>&nbsp;</p>
       <p>Ilona</p>
     </div>
@@ -1278,7 +1281,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   </div>
   <div class="a-carte">
     <div class="a-carte__img"><img class="vis__img" src="img/portrait.webp" alt=""><span>Visuel</span></div>
-    <div class="a-carte__texte"><p class="a-carte__titre">[Troisième valeur — à écrire]</p><p class="a-carte__desc">[Dans ton fichier, la troisième carte répète la première.]</p></div>
+    <div class="a-carte__texte"><p class="a-carte__titre">Des décisions, jamais des goûts.</p><p class="a-carte__desc">Chaque recommandation s'appuie sur le marché, la psychologie de votre cible et ce qui génère des demandes, pas sur nos préférences.</p></div>
   </div>
 </section>
 
@@ -1486,6 +1489,14 @@ route();
     a.addEventListener("click",function(){
       document.body.dataset.modeServices = a.dataset.modeCible==="abo" ? "abo" : "projet";
     });
+  });
+})();
+
+/* ----- tuiles accueil : réutilisent les images de la grille projets ----- */
+(function(){
+  document.querySelectorAll("img[data-src-de]").forEach(function(im){
+    var o=document.querySelector('.tuile[data-i="'+im.dataset.srcDe+'"] .vis__img');
+    if(o) im.src=o.src;
   });
 })();
 
