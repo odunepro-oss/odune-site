@@ -592,15 +592,15 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   .affirmation{min-height:100vh;display:flex;padding:var(--marge)}}
 /* indice de défilement sur les entêtes plein écran */
 .accroche,.s-accroche{position:relative}
-.indice-defiler{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:8px;
+.indice-defiler{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-top:22px;
   font-size:10px;line-height:10px;letter-spacing:.1em;text-transform:uppercase;color:#F9F8F7;opacity:.85;pointer-events:none}
 .indice-defiler svg{width:12px;height:14px;animation:indice-bas 2.4s cubic-bezier(.45,0,.55,1) infinite}
 @keyframes indice-bas{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 @media (prefers-reduced-motion:reduce){.indice-defiler svg{animation:none}}
-@media (max-width:960px){
-  .indice-defiler{position:static;left:auto;transform:none;align-items:flex-start;text-align:left;margin-top:20px}
-}
+.a-accroche .indice-defiler{color:var(--encre);opacity:.5}
+.a-accroche .bouton{margin-top:22px;background:#261B1A;border-color:#261B1A;color:#FFFFFF;align-self:flex-start}
+.a-accroche .bouton:hover{background:var(--fond);border-color:#261B1A;color:#261B1A}
+.a-accroche .indice-defiler{margin-top:26px}
 /* bouton du héros accueil : marron, en bas à droite */
 .ecran-hero{position:relative}
 .ecran-hero .bouton{position:absolute;right:var(--marge);bottom:var(--marge);
@@ -694,8 +694,8 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 .s-sans{background-image:url(img/fond-sans.webp);background-size:cover;background-position:center}
 .s-accroche{color:#F9F8F7}
 .s-accroche .s-accroche__sous{opacity:.7}
-.s-accroche .bouton{border-color:#F9F8F7;color:#F9F8F7}
-.s-accroche .bouton:hover{background:#F9F8F7;color:#261B1A}
+.s-accroche .bouton{background:#261B1A;border-color:#261B1A;color:#FFFFFF}
+.s-accroche .bouton:hover{background:#F9F8F7;border-color:#F9F8F7;color:#261B1A}
 .duree{color:#F9F8F7}
 .duree .duree__bloc{margin-top:26vh}
 .s-sans{color:#F9F8F7}
@@ -1018,13 +1018,13 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 
 <section class="ecran s-accroche">
   <div class="s-accroche__bloc">
-    <a class="bouton" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Réserver un appel-diagnostic</a>
     <div class="s-accroche__texte">
       <h1 class="s-accroche__titre">Deux façons de travailler avec nous.</h1>
       <p class="s-accroche__sous">Un projet, quand il faut créer une marque ou la refondre. Un abonnement, quand elle existe et qu'il faut la faire vivre chaque mois.</p>
     </div>
+    <a class="bouton" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Réserver un appel-diagnostic</a>
+    <div class="indice-defiler"><span>En savoir plus</span><svg viewBox="0 0 12 14" fill="none" aria-hidden="true"><path d="M6 1v11M1.5 8.5L6 13l4.5-4.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   </div>
-  <div class="indice-defiler"><span>En savoir plus</span><svg viewBox="0 0 12 14" fill="none" aria-hidden="true"><path d="M6 1v11M1.5 8.5L6 13l4.5-4.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
 </section>
 
 <section class="duo duo--projet" id="bloc-projet">
@@ -1225,6 +1225,8 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
       <h1 class="a-accroche__titre">Une agence digitale, à Paris, qui aussi travaille loin de Paris.</h1>
       <p class="a-accroche__sous">Fondée et dirigée par Ilona Langlois. Projets en France et à l'international.</p>
     </div>
+    <a class="bouton" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Réserver un appel-diagnostic</a>
+    <div class="indice-defiler"><span>En savoir plus</span><svg viewBox="0 0 12 14" fill="none" aria-hidden="true"><path d="M6 1v11M1.5 8.5L6 13l4.5-4.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   </div>
   <div class="a-accroche__droite">
     <div class="vis"><img class="vis__img" src="img/agence-1.webp" alt=""><span>Visuel</span></div>
