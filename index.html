@@ -54,7 +54,7 @@ a{color:inherit;text-decoration:none}
 .vis:has(.vis__img)>span{display:none}
 
 /* pied de page */
-.pied{border-top:0.5px solid var(--encre);padding:100px var(--marge) var(--marge);
+.pied{padding:100px var(--marge) var(--marge);
   display:flex;flex-direction:column;align-items:flex-end;gap:clamp(90px,19vw,243px)}
 .pied__marque{display:flex;flex-direction:column;gap:23px;width:283px}
 .pied__logo{width:282.612px;display:block}
@@ -590,6 +590,33 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
   transition:transform .45s cubic-bezier(.3,1.3,.5,1),opacity .35s ease}
 @media (prefers-reduced-motion:reduce){.mot{opacity:1;transition:none}.point{animation:none}
   .affirmation{min-height:100vh;display:flex;padding:var(--marge)}}
+/* indice de défilement sur les entêtes plein écran */
+.accroche,.s-accroche{position:relative}
+.indice-defiler{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-size:10px;line-height:10px;letter-spacing:.1em;text-transform:uppercase;color:#F9F8F7;opacity:.85;pointer-events:none}
+.indice-defiler svg{width:12px;height:14px;animation:indice-bas 2.4s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes indice-bas{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){.indice-defiler svg{animation:none}}
+/* bouton du héros accueil : marron, en bas à droite */
+.ecran-hero{position:relative}
+.ecran-hero .bouton{position:absolute;right:var(--marge);bottom:var(--marge);
+  background:#261B1A;border-color:#261B1A;color:#FFFFFF}
+.ecran-hero .bouton:hover{background:#FFFFFF;border-color:#FFFFFF;color:#261B1A}
+@media (max-width:760px){
+  .ecran-hero{padding-bottom:calc(var(--marge) + 56px)}
+  .ecran-hero .bouton{right:var(--marge);bottom:var(--marge)}
+}
+/* bouton dans la colonne services */
+.fixe__cta{margin-top:22px}
+/* appel à l'action flottant, mobile uniquement */
+.cta-flottant{position:fixed;left:50%;bottom:16px;z-index:70;transform:translate(-50%,90px);
+  background:#261B1A;color:#FFFFFF;border-radius:var(--rayon);padding:0 22px;
+  font-size:12px;line-height:40px;white-space:nowrap;box-shadow:0 8px 26px rgba(38,27,26,.28);
+  transition:transform .6s cubic-bezier(.34,1.4,.55,1);display:none}
+.cta-flottant[data-visible]{transform:translate(-50%,0)}
+@media (max-width:960px){.cta-flottant{display:inline-flex}}
+@media (prefers-reduced-motion:reduce){.cta-flottant{transition:none}}
 /* accueil : sections sous le héros */
 .acc-bloc{padding:130px var(--marge) 40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px;background:var(--fond)}
 .acc-bloc--premier{padding-top:150px}
@@ -829,6 +856,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 <section class="section accroche">
   <span class="accroche__note">Visuel plein écran à venir</span>
   <h1 class="accroche__titre">Avant de créer, comprendre.</h1>
+  <div class="indice-defiler"><span>En savoir plus</span><svg viewBox="0 0 12 14" fill="none" aria-hidden="true"><path d="M6 1v11M1.5 8.5L6 13l4.5-4.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
 </section>
 
 <!-- 02 ---------------------------------------------------------------- -->
@@ -993,6 +1021,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
       <p class="s-accroche__sous">Un projet, quand il faut créer une marque ou la refondre. Un abonnement, quand elle existe et qu'il faut la faire vivre chaque mois.</p>
     </div>
   </div>
+  <div class="indice-defiler"><span>En savoir plus</span><svg viewBox="0 0 12 14" fill="none" aria-hidden="true"><path d="M6 1v11M1.5 8.5L6 13l4.5-4.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
 </section>
 
 <section class="duo duo--projet" id="bloc-projet">
@@ -1007,6 +1036,7 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
       <p class="fixe__note only-desk mode-abo">À partir de 2 000 € HT</p>
       <div class="fixe__prix only-mob mode-abo"><span>À partir de 2 000 € HT</span><svg viewBox="0 0 17 9" fill="none" aria-hidden="true"><path d="M0.5 0.5L8.5 8L16.5 0.5" stroke="#9B9696" stroke-linecap="round"/></svg></div>
       <div class="fixe__prix only-mob mode-projet"><span>À partir de 3 000 € HT</span><svg viewBox="0 0 17 9" fill="none" aria-hidden="true"><path d="M0.5 0.5L8.5 8L16.5 0.5" stroke="#9B9696" stroke-linecap="round"/></svg></div>
+      <div class="only-desk fixe__cta"><a class="bouton" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Réserver un appel-diagnostic</a></div>
     </div>
   </aside>
   <div class="defile defile--services mode-projet">
@@ -1258,6 +1288,8 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 </footer>
 </div>
 
+<a class="cta-flottant" id="cta-flottant" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1qWvXmknUdz-djUUfQYzGoqeM1xlObBPgjlx_c8FAmHJu2IQxrlE4LDdOQeJOg_h2wZcbIpMx0" target="_blank" rel="noopener">Réserver un appel-diagnostic</a>
+
 <div class="route" id="r-mentions">
 <section class="mentions">
   <h1>Mentions légales</h1>
@@ -1411,6 +1443,19 @@ document.querySelectorAll(".onglet").forEach(function(b){
 });
 
 route();
+
+/* ----- appel à l'action flottant (mobile) ----- */
+(function(){
+  var cta=document.getElementById("cta-flottant");
+  if(!cta) return;
+  function maj(){
+    if(window.scrollY>350) cta.setAttribute("data-visible","");
+    else cta.removeAttribute("data-visible");
+  }
+  window.addEventListener("scroll",maj,{passive:true});
+  window.addEventListener("hashchange",function(){setTimeout(maj,60);});
+  maj();
+})();
 
 /* ----- révélations au scroll ----- */
 (function(){
