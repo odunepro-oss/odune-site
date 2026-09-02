@@ -407,7 +407,8 @@ body[data-mode-services="abo"] .mode-projet{display:none !important}
 /* galerie mobile : motif du cadre 12:8305, images recadrées jamais déformées */
 .mosaique-proj-mob{display:none;flex-direction:column;gap:6px;padding:30px var(--marge)}
 .mosaique-proj-mob .rangm{display:flex;gap:6px}
-.mosaique-proj-mob .vis{flex:1 1 0;min-width:0}
+.mosaique-proj-mob .rangm .vis{flex:1 1 0;min-width:0}
+.mosaique-proj-mob>.vis{flex:none;width:100%}
 @media (max-width:960px){
   #p-projet[data-mosa] .mosaique-proj{display:none !important}
   #p-projet[data-mosa] .mosaique-proj-mob{display:flex}
